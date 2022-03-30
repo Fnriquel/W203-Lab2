@@ -12,6 +12,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r, echo= FALSE}
+install.packages("patchwork")
+install.packages("sandwich")
+install.packages("lmtest")
 library(tidyverse)
 library(magrittr)
 library(ggplot2)
