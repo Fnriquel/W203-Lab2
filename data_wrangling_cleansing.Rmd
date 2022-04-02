@@ -1,0 +1,174 @@
+---
+title: "Proposal"
+author: "John-Tianyu-Fabian"
+date: '2022-03-26'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+#install.packages("patchwork")
+#install.packages("sandwich")
+#install.packages("lmtest")
+#install.packages('fastDummies')
+library('fastDummies')
+library(tidyverse)
+library(magrittr)
+library(ggplot2)
+library(patchwork)
+library(sandwich)
+library(lmtest)
+```
+
+```{r cars}
+data_set <-read.csv("merged_data_cleaned.csv")
+View(data_set)
+```
+
+```{r}
+plot1 <- data_set %>%
+  #filter(altitude_mean_meters<6000) %>%
+  ggplot()+
+  aes(x=altitude_mean_meters, y=Total.Cup.Points)+
+  ylim(60,90)+
+  geom_point()+
+  geom_smooth()
+
+plot2 <- data_set %>%
+  #filter(altitude_mean_meters<6000) %>%
+  ggplot()+
+  aes(x=Moisture, y=Total.Cup.Points)+
+  ylim(60,90)+
+  geom_point()+
+  geom_smooth()
+
+plot1/plot2
+```
+
+```{r remove NA and outliers}
+df <- data_set %>%
+  # Get rid of NAs
+  drop_na(altitude_mean_meters) %>%
+  filter(Processing.Method != '') %>%
+  # filter outliers of altitude
+  filter(altitude_mean_meters<6000)
+```
+
+```{r moisture EDA}
+df %>%
+  count(Processing.Method)
+
+hist_all <- df %>%
+  ggplot(aes(x=Moisture)) +
+  geom_histogram(bins=20)
+
+hist_wet <- df %>%
+  filter(Processing.Method=='Washed / Wet') %>%
+  ggplot(aes(x=Moisture)) +
+  geom_histogram(bins=20)
+
+hist_dry <- df %>%
+  filter(Processing.Method=='Natural / Dry') %>%
+  ggplot(aes(x=Moisture)) +
+  geom_histogram(bins=20)
+
+hist_all | hist_wet | hist_dry
+
+# Interesting that both have beans w/ Moisture = 0. Figured the 0 Moisture beans
+# would only belong to the Dry processing method
+
+```
+
+```{r unit of measurement EDA}
+df %>%
+  count(unit_of_measurement)
+
+hist_all <- df %>%
+  ggplot(aes(x=altitude_mean_meters)) +
+  geom_histogram(bins=20)
+
+hist_feet <- df %>%
+  filter(unit_of_measurement=='ft') %>%
+  ggplot(aes(x=altitude_mean_meters)) +
+  geom_histogram(bins=20)
+
+hist_meters <- df %>%
+  filter(unit_of_measurement=='m') %>%
+  ggplot(aes(x=altitude_mean_meters)) +
+  geom_histogram(bins=20)
+
+hist_all | hist_feet | hist_meters
+
+# convert feet measurements to meters. 1 foot = 0.3048 meters
+df$altitude_mean_meters_adj <- ifelse(df$unit_of_measurement=='ft', 
+                                      df$altitude_mean_meters * 0.3048,
+                                      df$altitude_mean_meters)
+
+hist_adj <- df %>%
+  ggplot(aes(x=altitude_mean_meters_adj)) +
+  geom_histogram(bins=20)
+
+hist_adj
+
+```
+
+```{r trim features}
+# Select features of interest: Country.of.Origin, Harvest.Year, Variety, Processing.Method
+# Maybe but No: Region (unclean data), In.Country.Partner (too many classes)
+df <- df %>%
+  select(c(Total.Cup.Points, altitude_mean_meters_adj,  Moisture, Country.of.Origin,
+           Harvest.Year, Variety, Processing.Method))
+```
+
+```{r categorical vars}
+# Processing Method: drop original and one baseline category ("Dry")
+#df %>% count(Processing.Method)
+df <- dummy_cols(df, select_columns = 'Processing.Method', 
+                 remove_selected_columns = TRUE)
+
+# Country
+
+
+# Variety - make the factors top 3 and others
+#df %>% count(Variety) %>% arrange(n)
+top_3_variety <- c("Caturra", "Typica", "Bourbon")
+df$variety_adj = ifelse(df$Variety %in% top_3_variety, df$Variety, "Other")
+df %>% count(variety_adj)
+df <- dummy_cols(df, select_columns = 'variety_adj', 
+                 remove_selected_columns = TRUE)
+df <- df %>%
+  select(-c("Processing.Method_Natural / Dry", "variety_adj_Other"))
+colnames(df)
+
+
+
+```
+
+```{r transform features}
+# Look at distributions of rest, determine log/transforms
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
