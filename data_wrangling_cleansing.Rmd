@@ -31,36 +31,15 @@ library(lmtest)
 
 ```{r cars}
 data_set <-read.csv("merged_data_cleaned.csv")
-View(data_set)
+
 ```
 
-```{r}
-plot1 <- data_set %>%
-  #filter(altitude_mean_meters<6000) %>%
-  ggplot()+
-  aes(x=altitude_mean_meters, y=Total.Cup.Points)+
-  ylim(60,90)+
-  geom_point()+
-  geom_smooth()
-
-plot2 <- data_set %>%
-  #filter(altitude_mean_meters<6000) %>%
-  ggplot()+
-  aes(x=Moisture, y=Total.Cup.Points)+
-  ylim(60,90)+
-  geom_point()+
-  geom_smooth()
-
-plot1/plot2
-```
 
 ```{r remove NA and outliers}
 df <- data_set %>%
   # Get rid of NAs
   drop_na(altitude_mean_meters) %>%
-  filter(Processing.Method != '') %>%
-  # filter outliers of altitude
-  filter(altitude_mean_meters<6000)
+  filter(Processing.Method != '', Harvest.Year != '') 
 ```
 
 ```{r moisture EDA}
@@ -93,15 +72,18 @@ df %>%
   count(unit_of_measurement)
 
 hist_all <- df %>%
+  filter(altitude_mean_meters < 6000) %>%
   ggplot(aes(x=altitude_mean_meters)) +
   geom_histogram(bins=20)
 
 hist_feet <- df %>%
+  filter(altitude_mean_meters < 6000) %>%
   filter(unit_of_measurement=='ft') %>%
   ggplot(aes(x=altitude_mean_meters)) +
   geom_histogram(bins=20)
 
 hist_meters <- df %>%
+  filter(altitude_mean_meters < 6000) %>%
   filter(unit_of_measurement=='m') %>%
   ggplot(aes(x=altitude_mean_meters)) +
   geom_histogram(bins=20)
@@ -113,11 +95,15 @@ df$altitude_mean_meters_adj <- ifelse(df$unit_of_measurement=='ft',
                                       df$altitude_mean_meters * 0.3048,
                                       df$altitude_mean_meters)
 
+df <- df %>%
+  filter(altitude_mean_meters_adj < 6000)
+
 hist_adj <- df %>%
   ggplot(aes(x=altitude_mean_meters_adj)) +
   geom_histogram(bins=20)
 
 hist_adj
+
 
 ```
 
@@ -125,40 +111,77 @@ hist_adj
 # Select features of interest: Country.of.Origin, Harvest.Year, Variety, Processing.Method
 # Maybe but No: Region (unclean data), In.Country.Partner (too many classes)
 df <- df %>%
-  select(c(Total.Cup.Points, altitude_mean_meters_adj,  Moisture, Country.of.Origin,
+  select(c(Total.Cup.Points, altitude_mean_meters_adj, Country.of.Origin,
            Harvest.Year, Variety, Processing.Method))
 ```
 
 ```{r categorical vars}
 # Processing Method: drop original and one baseline category ("Dry")
-#df %>% count(Processing.Method)
+df %>% count(Processing.Method)
 df <- dummy_cols(df, select_columns = 'Processing.Method', 
                  remove_selected_columns = TRUE)
 
-# Country
-
-
 # Variety - make the factors top 3 and others
-#df %>% count(Variety) %>% arrange(n)
+df %>% count(Variety) %>% arrange(n)
 top_3_variety <- c("Caturra", "Typica", "Bourbon")
 df$variety_adj = ifelse(df$Variety %in% top_3_variety, df$Variety, "Other")
-df %>% count(variety_adj)
 df <- dummy_cols(df, select_columns = 'variety_adj', 
                  remove_selected_columns = TRUE)
 df <- df %>%
-  select(-c("Processing.Method_Natural / Dry", "variety_adj_Other"))
+  select(-c("Processing.Method_Natural / Dry", "variety_adj_Other", "Variety"))
 colnames(df)
+```
 
+```{r merge regions - Tianyu}
+df %>%
+  count(Country.of.Origin) %>%
+  arrange(n)
 
+# Load regions data
+# Ideally df with Country col and Region col (watch out for spelling)
+
+# merge on the Country field
+
+# remove Country
+
+# Remove NAs for countries that we don't have REgions for (or manually assing)
+
+```
+
+```{r merge temperature - Fabian}
+df %>%
+  count(Harvest.Year) %>%
+  arrange(n)
+
+df$Harvest.Year <- ifelse(df$Harvest.Year=='2011/2012', '2012', df$Harvest.Year)
+df$Harvest.Year <- ifelse(df$Harvest.Year=='2016 / 2017', '2017', df$Harvest.Year)
+df$Harvest.Year <- ifelse(df$Harvest.Year=='2017 / 2018', '2018', df$Harvest.Year)
+df$Harvest.Year <- ifelse(df$Harvest.Year=='2015/2016', '2016', df$Harvest.Year)
+df$Harvest.Year <- ifelse(df$Harvest.Year=='2013/2014', '2014', df$Harvest.Year)
+
+df %>%
+  count(Harvest.Year) %>%
+  arrange(n)
+
+# Load temperature data
+
+# merge on the Year field
+
+# remove Year
 
 ```
 
 ```{r transform features}
 # Look at distributions of rest, determine log/transforms
 
+
 ```
 
+```{r split and EDA on 30%}
+# Look at distributions of rest, determine log/transforms
 
+
+```
 
 
 
