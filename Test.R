@@ -19,3 +19,5 @@ filter(altitude_mean_meters<6000 & altitude_mean_meters>500) %>%
 plot1
 
 lm1 <- lm(data_set2$Total.Cup.Points ~ data_set2$)
+
+##Testing if it works

@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 
-```{r, echo= FALSE}
+```{r echo=, message=FALSE, warning=FALSE}
 install.packages("patchwork")
 install.packages("sandwich")
 install.packages("lmtest")
@@ -49,12 +49,15 @@ plot1/plot2
 
 ```
 
-## Including Plots
+```{r}
+data_set2<- data_set %>% filter(altitude_mean_meters<6000)
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+plot3 <- data_set %>%
+filter(altitude_mean_meters<6000 & altitude_mean_meters>500) %>%
+  ggplot()+
+  aes(x=altitude_mean_meters, y=Total.Cup.Points)+
+  geom_jitter()+
+  geom_smooth(method = "lm", se = FALSE)
+plot3
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
