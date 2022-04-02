@@ -35,6 +35,17 @@ data_set <-read.csv("merged_data_cleaned.csv")
 ```
 
 
+```{r}
+plot_temp <-df_temp %>%
+  ggplot()+
+  aes(x=dt, y=LandAverageTemperature)+
+  geom_point()+
+  geom_smooth()
+
+plot_temp
+```
+
+
 ```{r remove NA and outliers}
 df <- data_set %>%
   # Get rid of NAs
@@ -165,7 +176,23 @@ df %>%
 
 # Load temperature data
 
+data_set_temp <-read.csv("GlobalTemperatures.csv")
+
+df_temp <-data_set_temp
+df_temp$dt <-as.Date(df_temp$dt)
+df_temp$dt <-as.numeric(format(df_temp$dt, "%Y"))
+
+df_temp_f <-df_temp %>%
+  # Get rid of NAs
+  drop_na(LandAverageTemperature)%>%
+  select(dt, LandAverageTemperature) %>%
+  group_by(dt)%>%
+  summarise_at(vars(LandAverageTemperature), list(Temperature = mean))
+
+
 # merge on the Year field
+
+fullset<-merge(x=df,y=df_temp_f,by.x="Harvest.Year", by.y="dt" ,all.x=TRUE)
 
 # remove Year
 
