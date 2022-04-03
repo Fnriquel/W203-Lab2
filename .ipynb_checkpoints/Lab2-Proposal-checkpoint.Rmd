@@ -1,0 +1,63 @@
+---
+title: "Proposal"
+author: "John-Tianyu-Fabian"
+date: '2022-03-26'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r echo=, message=FALSE, warning=FALSE}
+install.packages("patchwork")
+install.packages("sandwich")
+install.packages("lmtest")
+library(tidyverse)
+library(magrittr)
+library(ggplot2)
+library(patchwork)
+library(sandwich)
+library(lmtest)
+```
+
+```{r cars}
+data_set <-read.csv("merged_data_cleaned.csv")
+```
+
+```{r}
+plot1 <- data_set %>%
+  filter(altitude_mean_meters<6000) %>%
+  ggplot()+
+  aes(x=altitude_mean_meters, y=Total.Cup.Points)+
+  ylim(60,90)+
+  geom_point()+
+  geom_smooth()
+
+plot2 <- data_set %>%
+  filter(altitude_mean_meters<6000) %>%
+  ggplot()+
+  aes(x=Moisture, y=Total.Cup.Points)+
+  ylim(60,90)+
+  geom_point()+
+  geom_smooth()
+
+plot1/plot2
+
+
+```
+
+```{r}
+data_set2<- data_set %>% filter(altitude_mean_meters<6000)
+
+plot3 <- data_set %>%
+filter(altitude_mean_meters<6000 & altitude_mean_meters>500) %>%
+  ggplot()+
+  aes(x=altitude_mean_meters, y=Total.Cup.Points)+
+  geom_jitter()+
+  geom_smooth(method = "lm", se = FALSE)
+plot3
+```
+

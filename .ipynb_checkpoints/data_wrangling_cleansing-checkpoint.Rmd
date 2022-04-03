@@ -36,7 +36,7 @@ data_set <-read.csv("merged_data_cleaned.csv")
 
 
 ```{r}
-plot_temp <-data_set %>%
+plot_temp <-df_temp %>%
   ggplot()+
   aes(x=dt, y=LandAverageTemperature)+
   geom_point()+
@@ -147,22 +147,15 @@ colnames(df)
 df %>%
   count(Country.of.Origin) %>%
   arrange(n)
+
 # Load regions data
 # Ideally df with Country col and Region col (watch out for spelling)
-country_latitude <- read_csv("world_country_and_usa_states_latitude_and_longitude_values.csv") %>% 
-  mutate(Climatic = case_when(
-  abs(latitude) < 23.4364 ~ "Tropical",
-  abs(latitude) < 100~ "Non-Tropical"
-)) %>%
-  select(country, Climatic)
-# merge on the Country field, Replace NA with "Tropical"
-df <- left_join(df, country_latitude, by=c("Country.of.Origin" = "country")) %>% mutate_at("Climatic",~replace_na(.,"Tropical"))
+
+# merge on the Country field
+
 # remove Country
 
-
-df %>%
-  count(Climatic) %>%
-  arrange(n)
+# Remove NAs for countries that we don't have REgions for (or manually assing)
 
 ```
 
