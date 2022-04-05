@@ -3,6 +3,12 @@ title: "EDA.Rmd"
 output: html_document
 ---
 
+
+# Notes:
+- Plots to add: correlation table, distribution of each num var, counts of each cat
+- Features to explore:  defects, quakers, variety_raw
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```

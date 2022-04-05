@@ -36,10 +36,9 @@ data_set <- read.csv("merged_data_cleaned.csv")
 ```{r remove NA and outliers}
 df <- data_set %>%
   # Get rid of NAs
-  drop_na(altitude_mean_meters) %>%
-  filter(Processing.Method != '', Harvest.Year != '') 
+  drop_na(altitude_mean_meters, Quakers) %>%
+  filter(Processing.Method != '', Harvest.Year != '', Species == 'Arabica')
 ```
-
 
 ```{r unit of measurement EDA}
 # convert feet measurements to meters. 1 foot = 0.3048 meters
@@ -58,21 +57,21 @@ hist_adj
 ```{r trim features}
 # Select features of interest
 df <- df %>%
+  mutate(total_defects = Category.Two.Defects + Category.One.Defects) %>%
   select(c(Total.Cup.Points, altitude_mean_meters_adj, Country.of.Origin,
-           Harvest.Year, Variety, Processing.Method))
+           Harvest.Year, Variety, Processing.Method, total_defects, Quakers))
 ```
 
 ```{r categorical vars}
 # Processing Method: drop original and one baseline category ("Dry")
-#df %>% count(Processing.Method)
 df <- dummy_cols(df, select_columns = 'Processing.Method')
 
 # Variety - make the factors top 3 and others
-#df %>% count(Variety) %>% arrange(n)
-top_3_variety <- c("Caturra", "Typica", "Bourbon")
-df$variety_adj = ifelse(df$Variety %in% top_3_variety, df$Variety, "Other")
+top_5_variety <- c("Caturra", "Typica", "Bourbon", "Catuai", "Yellow Bourbon")
+df$variety_adj = ifelse(df$Variety %in% top_5_variety, df$Variety, "Other")
 df <- dummy_cols(df, select_columns = 'variety_adj')
 
+# Holdout one dummy var as baseline
 df <- df %>%
   select(-c("Processing.Method_Natural / Dry", "variety_adj_Other"))
 ```
@@ -151,86 +150,13 @@ colnames(model_df)
 colnames(eda_df)
 
 # Save modeling, EDA sets
-write.csv(model_df,"model_df.csv", row.names = FALSE)
-write.csv(eda_df,"eda_df.csv", row.names = FALSE)
+save_splits = TRUE
+
+if (save_splits) {
+  write.csv(model_df, "model_df.csv", row.names = FALSE)
+  write.csv(eda_df,"eda_df.csv", row.names = FALSE)
+}
 ```
-
-
-
-
-
-
-
-
-
-
-<!-- #### APPENDIX CODE ##### -->
-<!-- ```{r moisture EDA before wrangling} -->
-<!-- data_set %>% -->
-<!--   count(Processing.Method) -->
-
-<!-- hist_all <- data_set %>% -->
-<!--   ggplot(aes(x=Moisture)) + -->
-<!--   geom_histogram(bins=20) -->
-
-<!-- hist_wet <- data_set %>% -->
-<!--   filter(Processing.Method=='Washed / Wet') %>% -->
-<!--   ggplot(aes(x=Moisture)) + -->
-<!--   geom_histogram(bins=20) -->
-
-<!-- hist_dry <- data_set %>% -->
-<!--   filter(Processing.Method=='Natural / Dry') %>% -->
-<!--   ggplot(aes(x=Moisture)) + -->
-<!--   geom_histogram(bins=20) -->
-
-<!-- hist_all | hist_wet | hist_dry -->
-
-<!-- # Interesting that both have beans w/ Moisture = 0. Figured the 0 Moisture beans -->
-<!-- # would only belong to the Dry processing method -->
-
-<!-- ``` -->
-
-
-<!-- ```{r unit of measurement EDA} -->
-<!-- df %>% -->
-<!--   count(unit_of_measurement) -->
-
-<!-- hist_all <- df %>% -->
-<!--   filter(altitude_mean_meters < 6000) %>% -->
-<!--   ggplot(aes(x=altitude_mean_meters)) + -->
-<!--   geom_histogram(bins=20) -->
-
-<!-- hist_feet <- df %>% -->
-<!--   filter(altitude_mean_meters < 6000) %>% -->
-<!--   filter(unit_of_measurement=='ft') %>% -->
-<!--   ggplot(aes(x=altitude_mean_meters)) + -->
-<!--   geom_histogram(bins=20) -->
-
-<!-- hist_meters <- df %>% -->
-<!--   filter(altitude_mean_meters < 6000) %>% -->
-<!--   filter(unit_of_measurement=='m') %>% -->
-<!--   ggplot(aes(x=altitude_mean_meters)) + -->
-<!--   geom_histogram(bins=20) -->
-
-<!-- hist_all | hist_feet | hist_meters -->
-
-<!-- # convert feet measurements to meters. 1 foot = 0.3048 meters -->
-<!-- df$altitude_mean_meters_adj <- ifelse(df$unit_of_measurement=='ft',  -->
-<!--                                       df$altitude_mean_meters * 0.3048, -->
-<!--                                       df$altitude_mean_meters) -->
-
-<!-- df <- df %>% -->
-<!--   filter(altitude_mean_meters_adj < 6000) -->
-
-<!-- hist_adj <- df %>% -->
-<!--   ggplot(aes(x=altitude_mean_meters_adj)) + -->
-<!--   geom_histogram(bins=20) -->
-
-<!-- hist_adj -->
-
-
-<!-- ``` -->
-
 
 
 
