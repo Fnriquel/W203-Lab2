@@ -1,0 +1,71 @@
+---
+title: "EDA.Rmd"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r eda coffee bean data}
+eda_df <- read.csv("eda_df.csv")
+colnames(eda_df)
+```
+
+```{r eda numerical features}
+# Plot each feature relationship w/ Total.Cup.Points
+
+## Numerical: Scatter plots
+# Altitude
+alt_points <- eda_df %>%
+  ggplot(aes(x=altitude_mean_meters_adj, y=Total.Cup.Points)) + 
+  geom_point() + geom_smooth(method = "lm")
+
+# Temp
+temp_points <- eda_df %>%
+  ggplot(aes(x=mean_temp, y=Total.Cup.Points)) + 
+  geom_point() + geom_smooth(method = "lm")
+
+alt_points | temp_points
+```
+
+
+```{r eda categorical features}
+# Plot each feature relationship w/ Total.Cup.Points
+
+## Categorical: Bar plots
+# Variety
+all_variety_points <- eda_df %>%
+  ggplot(aes(x=Variety, y=Total.Cup.Points)) +
+  stat_summary(fun.data=mean_sdl, geom="bar")
+
+variety_points <- eda_df %>%
+  ggplot(aes(x=variety_adj, y=Total.Cup.Points)) +
+  stat_summary(fun.data=mean_sdl, geom="bar")
+
+all_variety_points | variety_points
+
+# Processing Method
+proc_points <- eda_df %>%
+  ggplot(aes(x=Processing.Method, y=Total.Cup.Points)) +
+  stat_summary(fun.data=mean_sdl, geom="bar")
+
+# Tropical (0) vs. Non-Tropical (1)
+trop_points <- eda_df %>%
+  ggplot(aes(x=Non_Tropical, y=Total.Cup.Points)) +
+  stat_summary(fun.data=mean_sdl, geom="bar")
+
+# Harvest Year
+year_points <- eda_df %>%
+  ggplot(aes(x=Harvest.Year, y=Total.Cup.Points)) +
+  stat_summary(fun.data=mean_sdl, geom="bar")
+
+proc_points | trop_points | year_points
+```
+
+
+
+
+
+
+

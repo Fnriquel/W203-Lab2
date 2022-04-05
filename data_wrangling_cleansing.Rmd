@@ -29,22 +29,9 @@ library(sandwich)
 library(lmtest)
 ```
 
-```{r cars}
-data_set <-read.csv("merged_data_cleaned.csv")
-
+```{r coffee beans data}
+data_set <- read.csv("merged_data_cleaned.csv")
 ```
-
-
-```{r}
-plot_temp <-data_set %>%
-  ggplot()+
-  aes(x=dt, y=LandAverageTemperature)+
-  geom_point()+
-  geom_smooth()
-
-plot_temp
-```
-
 
 ```{r remove NA and outliers}
 df <- data_set %>%
@@ -53,74 +40,23 @@ df <- data_set %>%
   filter(Processing.Method != '', Harvest.Year != '') 
 ```
 
-```{r moisture EDA}
-df %>%
-  count(Processing.Method)
-
-hist_all <- df %>%
-  ggplot(aes(x=Moisture)) +
-  geom_histogram(bins=20)
-
-hist_wet <- df %>%
-  filter(Processing.Method=='Washed / Wet') %>%
-  ggplot(aes(x=Moisture)) +
-  geom_histogram(bins=20)
-
-hist_dry <- df %>%
-  filter(Processing.Method=='Natural / Dry') %>%
-  ggplot(aes(x=Moisture)) +
-  geom_histogram(bins=20)
-
-hist_all | hist_wet | hist_dry
-
-# Interesting that both have beans w/ Moisture = 0. Figured the 0 Moisture beans
-# would only belong to the Dry processing method
-
-```
 
 ```{r unit of measurement EDA}
-df %>%
-  count(unit_of_measurement)
-
-hist_all <- df %>%
-  filter(altitude_mean_meters < 6000) %>%
-  ggplot(aes(x=altitude_mean_meters)) +
-  geom_histogram(bins=20)
-
-hist_feet <- df %>%
-  filter(altitude_mean_meters < 6000) %>%
-  filter(unit_of_measurement=='ft') %>%
-  ggplot(aes(x=altitude_mean_meters)) +
-  geom_histogram(bins=20)
-
-hist_meters <- df %>%
-  filter(altitude_mean_meters < 6000) %>%
-  filter(unit_of_measurement=='m') %>%
-  ggplot(aes(x=altitude_mean_meters)) +
-  geom_histogram(bins=20)
-
-hist_all | hist_feet | hist_meters
-
 # convert feet measurements to meters. 1 foot = 0.3048 meters
 df$altitude_mean_meters_adj <- ifelse(df$unit_of_measurement=='ft', 
                                       df$altitude_mean_meters * 0.3048,
                                       df$altitude_mean_meters)
-
 df <- df %>%
   filter(altitude_mean_meters_adj < 6000)
 
 hist_adj <- df %>%
   ggplot(aes(x=altitude_mean_meters_adj)) +
   geom_histogram(bins=20)
-
 hist_adj
-
-
 ```
 
 ```{r trim features}
-# Select features of interest: Country.of.Origin, Harvest.Year, Variety, Processing.Method
-# Maybe but No: Region (unclean data), In.Country.Partner (too many classes)
+# Select features of interest
 df <- df %>%
   select(c(Total.Cup.Points, altitude_mean_meters_adj, Country.of.Origin,
            Harvest.Year, Variety, Processing.Method))
@@ -128,93 +64,95 @@ df <- df %>%
 
 ```{r categorical vars}
 # Processing Method: drop original and one baseline category ("Dry")
-df %>% count(Processing.Method)
-df <- dummy_cols(df, select_columns = 'Processing.Method', 
-                 remove_selected_columns = TRUE)
+#df %>% count(Processing.Method)
+df <- dummy_cols(df, select_columns = 'Processing.Method')
 
 # Variety - make the factors top 3 and others
-df %>% count(Variety) %>% arrange(n)
+#df %>% count(Variety) %>% arrange(n)
 top_3_variety <- c("Caturra", "Typica", "Bourbon")
 df$variety_adj = ifelse(df$Variety %in% top_3_variety, df$Variety, "Other")
-df <- dummy_cols(df, select_columns = 'variety_adj', 
-                 remove_selected_columns = TRUE)
+df <- dummy_cols(df, select_columns = 'variety_adj')
+
 df <- df %>%
-  select(-c("Processing.Method_Natural / Dry", "variety_adj_Other", "Variety"))
-colnames(df)
+  select(-c("Processing.Method_Natural / Dry", "variety_adj_Other"))
 ```
 
 ```{r merge regions - Tianyu}
-df %>%
-  count(Country.of.Origin) %>%
-  arrange(n)
+#df %>% count(Country.of.Origin) %>% arrange(n)
+
 # Load regions data
-# Ideally df with Country col and Region col (watch out for spelling)
+# Region is either tropical or non-tropical, converting to binary features
+# and holding out Tropical regions as baseline
 country_latitude <- read_csv("world_country_and_usa_states_latitude_and_longitude_values.csv") %>% 
-  mutate(Climatic = case_when(
-  abs(latitude) < 23.4364 ~ "Tropical",
-  abs(latitude) < 100~ "Non-Tropical"
-)) %>%
-  select(country, Climatic)
-# merge on the Country field, Replace NA with "Tropical"
-df <- left_join(df, country_latitude, by=c("Country.of.Origin" = "country")) %>% mutate_at("Climatic",~replace_na(.,"Tropical"))
-# remove Country
+  mutate(Non_Tropical = case_when(abs(latitude) > 23.4364 ~ 1, TRUE ~ 0)) %>%
+  select(country, Non_Tropical)
 
+# merge on the Country field, replace NA with "Tropical"
+df2 <- df %>%
+  left_join(country_latitude, by=c("Country.of.Origin" = "country")) %>%
+  mutate(Non_Tropical = replace_na(Non_Tropical, 0)) 
 
-df %>%
-  count(Climatic) %>%
-  arrange(n)
-
+sum(df2$Non_Tropical)
 ```
 
 ```{r merge temperature - Fabian}
-df %>%
-  count(Harvest.Year) %>%
-  arrange(n)
-
-df$Harvest.Year <- ifelse(df$Harvest.Year=='2011/2012', '2012', df$Harvest.Year)
-df$Harvest.Year <- ifelse(df$Harvest.Year=='2016 / 2017', '2017', df$Harvest.Year)
-df$Harvest.Year <- ifelse(df$Harvest.Year=='2017 / 2018', '2018', df$Harvest.Year)
-df$Harvest.Year <- ifelse(df$Harvest.Year=='2015/2016', '2016', df$Harvest.Year)
-df$Harvest.Year <- ifelse(df$Harvest.Year=='2013/2014', '2014', df$Harvest.Year)
-
-df %>%
-  count(Harvest.Year) %>%
-  arrange(n)
+df2$Harvest.Year <- ifelse(df2$Harvest.Year=='2011/2012', '2012', df2$Harvest.Year)
+df2$Harvest.Year <- ifelse(df2$Harvest.Year=='2016 / 2017', '2017', df2$Harvest.Year)
+df2$Harvest.Year <- ifelse(df2$Harvest.Year=='2017 / 2018', '2018', df2$Harvest.Year)
+df2$Harvest.Year <- ifelse(df2$Harvest.Year=='2015/2016', '2016', df2$Harvest.Year)
+df2$Harvest.Year <- ifelse(df2$Harvest.Year=='2013/2014', '2014', df2$Harvest.Year)
+df2$Harvest.Year <- ifelse(df2$Harvest.Year=='2014/2015', '2015', df2$Harvest.Year)
 
 # Load temperature data
-
-data_set_temp <-read.csv("GlobalTemperatures.csv")
-
-df_temp <-data_set_temp
+df_temp <-read.csv("GlobalTemperatures.csv")
 df_temp$dt <-as.Date(df_temp$dt)
 df_temp$dt <-as.numeric(format(df_temp$dt, "%Y"))
-
-df_temp_f <-df_temp %>%
-  # Get rid of NAs
+df_temp_group <- df_temp %>%
   drop_na(LandAverageTemperature)%>%
-  select(dt, LandAverageTemperature) %>%
-  group_by(dt)%>%
-  summarise_at(vars(LandAverageTemperature), list(Temperature = mean))
+  filter((dt > 2010)&(dt<=2018)) %>%
+  group_by(dt) %>%
+  summarize(mean_temp = mean(LandAverageTemperature))
+df_temp_group$dt <- as.character(df_temp_group$dt)
 
-
-# merge on the Year field
-
-fullset<-merge(x=df,y=df_temp_f,by.x="Harvest.Year", by.y="dt" ,all.x=TRUE)
-
-# remove Year
-
+# merge on the year field
+df_final <- df2 %>%
+  inner_join(df_temp_group, by=c("Harvest.Year" = "dt"))
 ```
 
 ```{r transform features}
-# Look at distributions of rest, determine log/transforms
+# Numerical features: altitude, climate, mean_temp
+# Categorical features: processing method, variety
+# Target: total cup points
+alt_dist <- df_final %>%
+  ggplot(aes(x=altitude_mean_meters_adj)) +
+  geom_histogram(bins=20)
 
+cup_pts_dist <- df_final %>%
+  ggplot(aes(x=Total.Cup.Points)) +
+  geom_histogram(bins=20)
 
+alt_dist | cup_pts_dist
+
+# No transformations necessary on metric variables given normal distributions
 ```
 
 ```{r split and EDA on 30%}
-# Look at distributions of rest, determine log/transforms
+# Create EDA set, Modeling set
+sample_size = floor(0.7*nrow(df_final))
+picked = sample(seq_len(nrow(df_final)),size = sample_size)
+eda_df = df_final[-picked,]
+model_df = df_final[picked,]
 
+# Remove categorical features from modeling set, leave for EDA
+model_df <- model_df %>%
+  select(-c("Harvest.Year", "Country.of.Origin", "Processing.Method", "Variety",
+            "variety_adj"))
+colnames(model_df)
+colnames(eda_df)
 
+# Save modeling, EDA sets
+write.csv(model_df,"model_df.csv", row.names = FALSE)
+write.csv(eda_df,"eda_df.csv", row.names = FALSE)
 ```
 
 
@@ -222,6 +160,76 @@ fullset<-merge(x=df,y=df_temp_f,by.x="Harvest.Year", by.y="dt" ,all.x=TRUE)
 
 
 
+
+
+
+
+<!-- #### APPENDIX CODE ##### -->
+<!-- ```{r moisture EDA before wrangling} -->
+<!-- data_set %>% -->
+<!--   count(Processing.Method) -->
+
+<!-- hist_all <- data_set %>% -->
+<!--   ggplot(aes(x=Moisture)) + -->
+<!--   geom_histogram(bins=20) -->
+
+<!-- hist_wet <- data_set %>% -->
+<!--   filter(Processing.Method=='Washed / Wet') %>% -->
+<!--   ggplot(aes(x=Moisture)) + -->
+<!--   geom_histogram(bins=20) -->
+
+<!-- hist_dry <- data_set %>% -->
+<!--   filter(Processing.Method=='Natural / Dry') %>% -->
+<!--   ggplot(aes(x=Moisture)) + -->
+<!--   geom_histogram(bins=20) -->
+
+<!-- hist_all | hist_wet | hist_dry -->
+
+<!-- # Interesting that both have beans w/ Moisture = 0. Figured the 0 Moisture beans -->
+<!-- # would only belong to the Dry processing method -->
+
+<!-- ``` -->
+
+
+<!-- ```{r unit of measurement EDA} -->
+<!-- df %>% -->
+<!--   count(unit_of_measurement) -->
+
+<!-- hist_all <- df %>% -->
+<!--   filter(altitude_mean_meters < 6000) %>% -->
+<!--   ggplot(aes(x=altitude_mean_meters)) + -->
+<!--   geom_histogram(bins=20) -->
+
+<!-- hist_feet <- df %>% -->
+<!--   filter(altitude_mean_meters < 6000) %>% -->
+<!--   filter(unit_of_measurement=='ft') %>% -->
+<!--   ggplot(aes(x=altitude_mean_meters)) + -->
+<!--   geom_histogram(bins=20) -->
+
+<!-- hist_meters <- df %>% -->
+<!--   filter(altitude_mean_meters < 6000) %>% -->
+<!--   filter(unit_of_measurement=='m') %>% -->
+<!--   ggplot(aes(x=altitude_mean_meters)) + -->
+<!--   geom_histogram(bins=20) -->
+
+<!-- hist_all | hist_feet | hist_meters -->
+
+<!-- # convert feet measurements to meters. 1 foot = 0.3048 meters -->
+<!-- df$altitude_mean_meters_adj <- ifelse(df$unit_of_measurement=='ft',  -->
+<!--                                       df$altitude_mean_meters * 0.3048, -->
+<!--                                       df$altitude_mean_meters) -->
+
+<!-- df <- df %>% -->
+<!--   filter(altitude_mean_meters_adj < 6000) -->
+
+<!-- hist_adj <- df %>% -->
+<!--   ggplot(aes(x=altitude_mean_meters_adj)) + -->
+<!--   geom_histogram(bins=20) -->
+
+<!-- hist_adj -->
+
+
+<!-- ``` -->
 
 
 
