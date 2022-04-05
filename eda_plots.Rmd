@@ -5,18 +5,30 @@ output: html_document
 
 
 # Notes:
-- Plots to add: correlation table, distribution of each num var, counts of each cat
-- Features to explore:  defects, quakers, variety_raw
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r eda coffee bean data}
+library(tidyverse)
+library(magrittr)
+library(ggplot2)
+library(patchwork)
 eda_df <- read.csv("eda_df.csv")
 colnames(eda_df)
 ```
+
+
+```{r Plot Distributions}
+## Numerical: Histogram
+eda_df %>% ggplot(aes(x=Total.Cup.Points)) + geom_density()
+eda_df %>% ggplot(aes(x=altitude_mean_meters_adj)) + geom_density()
+eda_df %>% ggplot(aes(x=mean_temp)) + geom_histogram()
+eda_df %>% ggplot(aes(x=total_defects)) + geom_histogram()
+eda_df %>% ggplot(aes(x=Quakers)) + geom_histogram()
+```
+
 
 ```{r eda numerical features}
 # Plot each feature relationship w/ Total.Cup.Points
@@ -27,12 +39,22 @@ alt_points <- eda_df %>%
   ggplot(aes(x=altitude_mean_meters_adj, y=Total.Cup.Points)) + 
   geom_point() + geom_smooth(method = "lm")
 
-# Temp
+# Temperature
 temp_points <- eda_df %>%
   ggplot(aes(x=mean_temp, y=Total.Cup.Points)) + 
   geom_point() + geom_smooth(method = "lm")
 
-alt_points | temp_points
+# Total Defects
+def_points <- eda_df %>%
+  ggplot(aes(x=total_defects, y=Total.Cup.Points)) + 
+  geom_point() + geom_smooth(method = "lm")
+
+# Quaker Defects
+quak_points <- eda_df %>%
+  ggplot(aes(x=Quakers, y=Total.Cup.Points)) + 
+  geom_point() + geom_smooth(method = "lm")
+
+alt_points | temp_points | def_points | quak_points
 ```
 
 
@@ -54,7 +76,8 @@ all_variety_points | variety_points
 # Processing Method
 proc_points <- eda_df %>%
   ggplot(aes(x=Processing.Method, y=Total.Cup.Points)) +
-  stat_summary(fun.data=mean_sdl, geom="bar")
+  stat_summary(fun.data=mean_sdl, geom="bar") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
 # Tropical (0) vs. Non-Tropical (1)
 trop_points <- eda_df %>%

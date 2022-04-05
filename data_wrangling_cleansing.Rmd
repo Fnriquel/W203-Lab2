@@ -145,12 +145,12 @@ model_df = df_final[picked,]
 # Remove categorical features from modeling set, leave for EDA
 model_df <- model_df %>%
   select(-c("Harvest.Year", "Country.of.Origin", "Processing.Method", "Variety",
-            "variety_adj"))
+            "variety_adj", "Quakers"))
 colnames(model_df)
 colnames(eda_df)
 
 # Save modeling, EDA sets
-save_splits = TRUE
+save_splits = FALSE
 
 if (save_splits) {
   write.csv(model_df, "model_df.csv", row.names = FALSE)
