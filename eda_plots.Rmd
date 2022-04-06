@@ -16,14 +16,18 @@ library(magrittr)
 library(ggplot2)
 library(patchwork)
 eda_df <- read.csv("eda_df.csv")
+model_df <- read.csv("model_df.csv")
 colnames(eda_df)
+colnames(model_df)
 ```
 
 
 ```{r Plot Distributions}
 ## Numerical: Histogram
 eda_df %>% ggplot(aes(x=Total.Cup.Points)) + geom_density()
-eda_df %>% ggplot(aes(x=altitude_mean_meters_adj)) + geom_density()
+eda_df$Non_Tropical <- as.factor(eda_df$Non_Tropical)
+eda_df %>% ggplot(aes(x=altitude_mean_meters_adj, colour=Processing.Method)) + geom_density()
+eda_df %>% ggplot(aes(x=altitude_mean_meters_adj, colour=Processing.Method)) + geom_density()
 eda_df %>% ggplot(aes(x=mean_temp)) + geom_histogram()
 eda_df %>% ggplot(aes(x=total_defects)) + geom_histogram()
 eda_df %>% ggplot(aes(x=Quakers)) + geom_histogram()
