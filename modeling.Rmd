@@ -1,0 +1,79 @@
+---
+title: "Proposal"
+author: "John-Tianyu-Fabian"
+date: '2022-04-05'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+#install.packages("patchwork")
+#install.packages("sandwich")
+#install.packages("lmtest")
+#install.packages('fastDummies')
+library('fastDummies')
+library(tidyverse)
+library(magrittr)
+library(ggplot2)
+library(patchwork)
+library(sandwich)
+library(lmtest)
+```
+
+```{r load model data}
+model_df <- read.csv("model_df.csv") %>% mutate(altitude_e100 = altitude_mean_meters_adj / 100)
+```
+
+```{r model test}
+model1 <- lm(Total.Cup.Points ~ altitude_mean_meters_adj, data = model_df)
+model2 <- lm(Total.Cup.Points ~ altitude_mean_meters_adj + Non_Tropical, data = model_df)
+model3 <- lm(Total.Cup.Points ~ altitude_mean_meters_adj + I(altitude_mean_meters_adj^2)+ Non_Tropical , data = model_df)
+model4 <- lm(Total.Cup.Points ~ altitude_mean_meters_adj + I(altitude_mean_meters_adj^2)+ Non_Tropical + variety_adj , data = model_df)
+
+#for each 1 meter increment of altitude,the score got 0.0007 higher
+summary(model1)
+
+#By changing the region from tropical to non-tropical,the score got 1.13 lower
+summary(model2)
+
+#the increment of score from altitude diminishes with a rate of 0.0000005 for each 1 meter change.
+#which means the score starts decreasing from about 4200 meter.
+summary(model3)
+
+#comparing to Bourbon, Typica shows significant changes on the result
+summary(model4)
+```
+
+
+```{r model test with altitude/100 transform}
+model1 <- lm(Total.Cup.Points ~ altitude_e100, data = model_df)
+model2 <- lm(Total.Cup.Points ~ altitude_e100 + Non_Tropical, data = model_df)
+model3 <- lm(Total.Cup.Points ~ altitude_e100 + I(altitude_e100^2)+ Non_Tropical , data = model_df)
+model4 <- lm(Total.Cup.Points ~ altitude_e100 + I(altitude_e100^2)+ Non_Tropical + variety_adj , data = model_df)
+
+#for each 100 meter increment of altitude,the score got 0.07 higher
+summary(model1)
+
+#By changing the region from tropical to non-tropical,the score got 1.13 lower
+summary(model2)
+
+#the increment of score from altitude diminishes with a rate of 0.005 for each 100 meter change.
+#which means the score starts decreasing from about 4200 meter.
+summary(model3)
+
+#comparing to Bourbon, Typica shows significant changes on the result
+summary(model4)
+```
+
+
+
+
+
+
+
+
+
