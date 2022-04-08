@@ -87,35 +87,34 @@ country_latitude <- read_csv("world_country_and_usa_states_latitude_and_longitud
   select(country, Non_Tropical)
 
 # merge on the Country field, replace NA with "Tropical"
-df2 <- df %>%
+df_final <- df %>%
   left_join(country_latitude, by=c("Country.of.Origin" = "country")) %>%
   mutate(Non_Tropical = replace_na(Non_Tropical, 0)) 
 
-sum(df2$Non_Tropical)
 ```
 
 ```{r merge temperature - Fabian}
-df2$Harvest.Year <- ifelse(df2$Harvest.Year=='2011/2012', '2012', df2$Harvest.Year)
-df2$Harvest.Year <- ifelse(df2$Harvest.Year=='2016 / 2017', '2017', df2$Harvest.Year)
-df2$Harvest.Year <- ifelse(df2$Harvest.Year=='2017 / 2018', '2018', df2$Harvest.Year)
-df2$Harvest.Year <- ifelse(df2$Harvest.Year=='2015/2016', '2016', df2$Harvest.Year)
-df2$Harvest.Year <- ifelse(df2$Harvest.Year=='2013/2014', '2014', df2$Harvest.Year)
-df2$Harvest.Year <- ifelse(df2$Harvest.Year=='2014/2015', '2015', df2$Harvest.Year)
-
-# Load temperature data
-df_temp <-read.csv("GlobalTemperatures.csv")
-df_temp$dt <-as.Date(df_temp$dt)
-df_temp$dt <-as.numeric(format(df_temp$dt, "%Y"))
-df_temp_group <- df_temp %>%
-  drop_na(LandAverageTemperature)%>%
-  filter((dt > 2010)&(dt<=2018)) %>%
-  group_by(dt) %>%
-  summarize(mean_temp = mean(LandAverageTemperature))
-df_temp_group$dt <- as.character(df_temp_group$dt)
-
-# merge on the year field
-df_final <- df2 %>%
-  inner_join(df_temp_group, by=c("Harvest.Year" = "dt"))
+# df2$Harvest.Year <- ifelse(df2$Harvest.Year=='2011/2012', '2012', df2$Harvest.Year)
+# df2$Harvest.Year <- ifelse(df2$Harvest.Year=='2016 / 2017', '2017', df2$Harvest.Year)
+# df2$Harvest.Year <- ifelse(df2$Harvest.Year=='2017 / 2018', '2018', df2$Harvest.Year)
+# df2$Harvest.Year <- ifelse(df2$Harvest.Year=='2015/2016', '2016', df2$Harvest.Year)
+# df2$Harvest.Year <- ifelse(df2$Harvest.Year=='2013/2014', '2014', df2$Harvest.Year)
+# df2$Harvest.Year <- ifelse(df2$Harvest.Year=='2014/2015', '2015', df2$Harvest.Year)
+# 
+# # Load temperature data
+# df_temp <-read.csv("GlobalTemperatures.csv")
+# df_temp$dt <-as.Date(df_temp$dt)
+# df_temp$dt <-as.numeric(format(df_temp$dt, "%Y"))
+# df_temp_group <- df_temp %>%
+#   drop_na(LandAverageTemperature)%>%
+#   filter((dt > 2010)&(dt<=2018)) %>%
+#   group_by(dt) %>%
+#   summarize(mean_temp = mean(LandAverageTemperature))
+# df_temp_group$dt <- as.character(df_temp_group$dt)
+# 
+# # merge on the year field
+# df_final <- df2 %>%
+#   inner_join(df_temp_group, by=c("Harvest.Year" = "dt"))
 ```
 
 ```{r transform features}
@@ -157,7 +156,6 @@ if (save_splits) {
   write.csv(eda_df,"eda_df.csv", row.names = FALSE)
 }
 ```
-
 
 
 

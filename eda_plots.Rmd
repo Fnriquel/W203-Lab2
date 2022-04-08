@@ -16,11 +16,16 @@ library(magrittr)
 library(ggplot2)
 library(patchwork)
 eda_df <- read.csv("eda_df.csv")
-model_df <- read.csv("model_df.csv")
 colnames(eda_df)
-colnames(model_df)
 ```
 
+```{r summary stats on key vars}
+mean(eda_df$Total.Cup.Points)
+sd(eda_df$Total.Cup.Points)
+
+mean(eda_df$altitude_mean_meters_adj)
+sd(eda_df$altitude_mean_meters_adj)
+```
 
 ```{r Plot Distributions}
 ## Numerical: Histogram
@@ -32,7 +37,6 @@ eda_df %>% ggplot(aes(x=mean_temp)) + geom_histogram()
 eda_df %>% ggplot(aes(x=total_defects)) + geom_histogram()
 eda_df %>% ggplot(aes(x=Quakers)) + geom_histogram()
 ```
-
 
 ```{r eda numerical features}
 # Plot each feature relationship w/ Total.Cup.Points
@@ -96,9 +100,50 @@ year_points <- eda_df %>%
 proc_points | trop_points | year_points
 ```
 
+```{r Clean PDF TCS}
+## Numerical: Histogram
+cup_hist <- eda_df %>% 
+  ggplot(aes(x=Total.Cup.Points)) + geom_density() +
+  labs(title="Figure 1: Distribution of Total Cup Points",
+       x="Total Cup Score", y="Density") + 
+  theme(
+    plot.title = element_text(size=18, face="bold.italic", hjust=0.5),
+    axis.title.x = element_text(size=14, face="bold"),
+    axis.title.y = element_text(size=14, face="bold")
+    )
+ggsave("plots/cup_dist.png", width = 6, height = 4)
 
+cup_hist 
+```
 
+```{r Clean PDF Altitude}
+alt_hist <- eda_df %>% 
+  ggplot(aes(x=altitude_mean_meters_adj)) + geom_density() +
+    labs(title="Figure 2: Distribution of Altitude",
+       x="Altitude (meters)", y="Density") + 
+  theme(
+    plot.title = element_text(size=18, face="bold.italic", hjust=0.5),
+    axis.title.x = element_text(size=14, face="bold"),
+    axis.title.y = element_text(size=14, face="bold")
+    )
+ggsave("plots/altitude_dist.png", width = 6, height = 4)
 
+alt_hist
+```
 
+```{r Clean PDF Altitude}
+alt_points <- eda_df %>%
+  ggplot(aes(x=altitude_mean_meters_adj, y=Total.Cup.Points)) + 
+  geom_point() + geom_smooth(method = "lm") +
+    labs(title="Figure 3: Relationship Between Altitude and Total Cup Points",
+       x="Altitude (meters)", y="Total Cup Points") + 
+  theme(
+    plot.title = element_text(size=16, face="bold.italic", hjust=0.5),
+    axis.title.x = element_text(size=14, face="bold"),
+    axis.title.y = element_text(size=14, face="bold")
+    )
+ggsave("plots/altitude_cupscore_scatter.png", width = 8, height = 4)
 
+alt_points
+```
 
