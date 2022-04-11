@@ -80,10 +80,13 @@ summary(model4)
 #cov(model_df)
 install.packages("corrplot")
 library(corrplot)
-correlation_df<-cor(model_df[1:13],model_df[1:13], method="spearman", use="pairwise.complete.obs")
-colnames(correlation_df) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13")
-rownames(correlation_df) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13")
-corrplot(correlation_df, method = 'number', number.cex = 0.5)
+model_cor=model_df[1:13]
+correlation_df<-cor(model_cor,model_cor, method="pearson", use="all.obs")
+colnames(correlation_df) <- c("Total_Cup", "Altitude", "Total_defects", "Processing_Other", "Processing_Pulped", "Processing_Semi_Washed", "Processing_Washed", "Variety_Bourbon", "Variety_Catuai", "Variety_Caturra", "Variety_Typica", "Variety_Yellow", "Non_Tropical")
+rownames(correlation_df) <- c("Total_Cup", "Altitude", "Total_defects", "Processing_Other", "Processing_Pulped", "Processing_Semi_Washed", "Processing_Washed", "Variety_Bourbon", "Variety_Catuai", "Variety_Caturra", "Variety_Typica", "Variety_Yellow", "Non_Tropical")
+corrplot(correlation_df, method = 'number', number.cex = 0.5, col="black",tl.cex = 0.5, tl.offset = 1)
+
+
 ```
 
 
