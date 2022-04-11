@@ -2,12 +2,15 @@
 title: "Proposal"
 author: "John-Tianyu-Fabian"
 date: '2022-04-05'
+header-includes:
+   - \usepackage{amsmath}
 output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```
+
 
 
 ```{r}
@@ -22,63 +25,128 @@ library(ggplot2)
 library(patchwork)
 library(sandwich)
 library(lmtest)
+library(stargazer)
 ```
 
 ```{r load model data}
-model_df <- read.csv("model_df.csv") %>% mutate(altitude_e100 = altitude_mean_meters_adj / 100)
-```
-
-```{r model test}
-model1 <- lm(Total.Cup.Points ~ altitude_mean_meters_adj, data = model_df)
-model2 <- lm(Total.Cup.Points ~ altitude_mean_meters_adj + Non_Tropical, data = model_df)
-model3 <- lm(Total.Cup.Points ~ altitude_mean_meters_adj + I(altitude_mean_meters_adj^2)+ Non_Tropical , data = model_df)
-model4 <- lm(Total.Cup.Points ~ altitude_mean_meters_adj + I(altitude_mean_meters_adj^2)+ Non_Tropical + model_df$variety_adj_Bourbon + model_df$variety_adj_Catuai + model_df$variety_adj_Caturra + model_df$variety_adj_Typica + model_df$variety_adj_Yellow.Bourbon , data = model_df)
-
-#for each 1 meter increment of altitude,the score got 0.0007 higher
-summary(model1)
-
-#By changing the region from tropical to non-tropical,the score got 1.13 lower
-summary(model2)
-
-#the increment of score from altitude diminishes with a rate of 0.0000005 for each 1 meter change.
-#which means the score starts decreasing from about 4200 meter.
-summary(model3)
-
-#comparing to Bourbon, Typica shows significant changes on the result
-summary(model4)
-
-model5 <- lm(Total.Cup.Points ~ altitude_mean_meters_adj + I(altitude_mean_meters_adj^2)+ Non_Tropical + model_df$Processing.Method_Washed...Wet + model_df$Processing.Method_Semi.washed...Semi.pulped + model_df$Processing.Method_Pulped.natural...honey + model_df$Processing.Method_Other , data = model_df)
-summary(model5)
-
-coeftest(model5, vcovHC)
-```
-
-
-```{r model test with altitude/100 transform}
-model1 <- lm(Total.Cup.Points ~ altitude_e100, data = model_df)
-model2 <- lm(Total.Cup.Points ~ altitude_e100 + Non_Tropical, data = model_df)
-model3 <- lm(Total.Cup.Points ~ altitude_e100 + I(altitude_e100^2)+ Non_Tropical , data = model_df)
-model4 <- lm(Total.Cup.Points ~ altitude_e100 + I(altitude_e100^2)+ Non_Tropical + variety_adj , data = model_df)
-
-#for each 100 meter increment of altitude,the score got 0.07 higher
-summary(model1)
-
-#By changing the region from tropical to non-tropical,the score got 1.13 lower
-summary(model2)
-
-#the increment of score from altitude diminishes with a rate of 0.005 for each 100 meter change.
-#which means the score starts decreasing from about 4200 meter.
-summary(model3)
-
-#comparing to Bourbon, Typica shows significant changes on the result
-summary(model4)
+model_df <- read.csv("model_df.csv") %>% filter(altitude_mean_meters_adj < 3000) %>% mutate(altitude_e100 = altitude_mean_meters_adj / 100) 
 ```
 
 
 
+# Modeling
+
+As mentioned from the previous section of exploratory data analysis, we found a positive relationship between the altitude measure and the total cup score. Therefore, altitude are being chosen as the key variable in our model. 
+
+On top of the altitude, the climate and environment which coffee beans are growing in is considered as an additional factor which can impact the quality. Since coffee plants are generated well grown between the tropic of Cancer and the tropic of Capricorn, usually termed the bean belt or the coffee belt\footnote{Consonni, Roberto, Laura Ruth Cagliani, and Clelia Cogliati. “NMR Based Geographical Characterization of Roasted Coffee.” Talanta (Oxford) 88 (2012): 420–426. Web.}, we will mainly investigate the climate difference between tropical and non-tropical region. In this study, the latitude information of each country is integrated from an extra data set which allow us to define the region of each country.
+
+Beyond the two geographical factors mentioned above, we are considering to include the properties and processes that are associated with the beans as control variables in our model:
+
+
+- Processing Method
+- Variety
+- Total Defects
+
+While conducting the analysis and modeling, we found that the Total score increment described by the effect size will be too small if the variable unit increases by every meter. Thus, `altitude_e100` column is generated from the original altitude information devided by 100.
+
+
+```{r distribution}
+d_points <- model_df %>% ggplot(aes(Total.Cup.Points)) + geom_histogram()
+d_altitude <- model_df %>% ggplot(aes(altitude_e100)) + geom_histogram(bins = 60)
+d_tropical <- model_df %>% ggplot(aes(Non_Tropical)) + geom_histogram()
+d_defects <- model_df %>% ggplot(aes(total_defects)) + geom_histogram()
+
+d_points / d_altitude |
+  d_defects /d_tropical
+``` 
+
+
+```{r alti_tcp}
+alti_tcp <- model_df %>%
+  ggplot(aes(x=altitude_mean_meters_adj, y=Total.Cup.Points)) + 
+  geom_point() + stat_smooth(method = "lm", formula = y ~ x + I(x^2))
+alti_tcp
+```
+
+## Base Model
+
+In the base model, only the key explanatory variable `altitude_e100` is included:
+$$
+Total.Cup.Points = \beta_0 + \beta_1 \cdot altitude\_e100 + \beta_2 \cdot altitude\_e100^2
+$$
+```{r model1}
+model1 <- lm(Total.Cup.Points ~ altitude_e100  + I(altitude_e100^2), data = model_df)
+```
+We can determine that altitude variable has a statistically significant impact to the total cup points. In the base model, the coefficient of determination($R^2$) is 0.106, indicating that 10.6% of the variance in the total cup point is being described by the base model. The effect size of altitude per 100 meter is -0.493, indicating that a 100-meter increase of the altitude decrease the total cup score by 0.493 units at 0 meter altitude.  The effect size of altitude squared per 100 meter is 0.028, indicating that a 100-meter increase of the altitude will slow down the total cup score decreament by 0.028 units.
 
 
 
+## Second Model
+As mentioned above, we include non_tropical variable in the second model to explore another geographical elements in the total cup point evaluation.
+
+The second model assessed is thus as follows:
+
+$$
+Total.Cup.Points = \beta_0 + \beta_1 \cdot altitude\_e100 + \beta_2 \cdot altitude\_e100^2 + \beta_3 \cdot Non\_Tropical
+$$
+
+```{r model2}
+model2 <- lm(Total.Cup.Points ~ altitude_e100 + I(altitude_e100^2) + Non_Tropical, data = model_df)
+```
+
+
+## Third Model
+In the third model, additional control variables are accounted for aspects of the coffee bean's properties and processing methods.
+
+The third model assessed is thus as follows:
+
+\begin{align*}
+Total.Cup.Points = \beta_0 + \beta_1 \cdot altitude\_e100 + \beta_2 \cdot altitude\_e100^2\\
++ \beta_3 \cdot Non\_Tropical + \beta_4 \cdot variety + \beta_5 \cdot Processing.Method + \beta_6 \cdot Total.Defect
+\end{align*}
+
+```{r model3}
+model3 <- lm(Total.Cup.Points ~ altitude_e100 + I(altitude_e100^2) + Non_Tropical + total_defects
+             + variety_adj_Bourbon + variety_adj_Catuai + variety_adj_Caturra 
+             + variety_adj_Typica + variety_adj_Yellow.Bourbon
+             + Processing.Method_Washed...Wet + Processing.Method_Semi.washed...Semi.pulped
+             + Processing.Method_Pulped.natural...honey + Processing.Method_Other, data = model_df)
+```
+
+
+
+# Results
+
+```{r warning = FALSE, results='asis'}
+model1$AIC <- AIC(model1)
+model2$AIC <- AIC(model2)
+model3$AIC <- AIC(model3)
+stargazer(
+  model1,
+  model2,
+  model3,
+  type = 'latex',
+  no.space=TRUE,
+  font.size = "small"
+  )
+
+```
+
+
+The base model indicates a effect size of -0.493 with a coefficient of determination of 0.106. The effect size of altitude per 100 meter indicates that a 100-meter increase of the altitude decrease the total cup score by 0.493 units at 0 meter altitude.  The effect size of altitude squared per 100 meter is 0.028, indicating that a 100-meter increase of the altitude will slow down the total cup score dropping by 0.028 units.
+
+The second model includes additional explanatory variables `Non_tropical`, which are expected to explain meaningful aspects of the data. With the addition of the tropical information, the second model indicates a effect size of -0.325 with a coefficient of determination of 0.152. It indicates that if the growing region of one coffee bean being moved out from tropical region, the total cup score will have a 1.224 unit drop. This shows that the tropical information contributes a big part to the second model and dilutes the effect size of altitude variable. 
+
+The third model, which includes the explanatory variables from the second model while also adding in control variables, shows an increase in explanatory power (0.236 vs. 0.152). The addition of these control variables results in a reduction of effect size on an absolute value basis across all of the explanatory variables; however, the altitude variable effect size remains relatively stable from a practical perspective (-0.281 vs. 0.325).
+
+The final model selected is thus as follows:
+
+\begin{align*}
+Total.Cup.Points = \beta_0 + \beta_1 \cdot altitude\_e100 + \beta_2 \cdot altitude\_e100^2\\
++ \beta_3 \cdot Non\_Tropical + \beta_4 \cdot variety + \beta_5 \cdot Processing.Method + \beta_6 \cdot Total.Defect
+\end{align*}
+
+The total cup score of coffee beans is impacted by it’s growing altitude. At the beginning of 0 meter altitude, an increase in the altitude by 100 meter decreases the total cup score by 0.281 units, and is highly statistically significant. However, the decreasing trend get slower with a rate of 0.018 for every 100 meters of altitude increment. The score will hit the bottom at about 1561 meter altitude, after which, the score will go up again. As a guidence for coffee investors, it seems better to grow coffee either on the lower altitude area close to 0 meter or on the higher altitude area close to 3000 meter.
 
 
 
