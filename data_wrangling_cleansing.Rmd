@@ -46,7 +46,7 @@ df$altitude_mean_meters_adj <- ifelse(df$unit_of_measurement=='ft',
                                       df$altitude_mean_meters * 0.3048,
                                       df$altitude_mean_meters)
 df <- df %>%
-  filter(altitude_mean_meters_adj < 6000)
+  filter(altitude_mean_meters_adj < 3000)
 
 hist_adj <- df %>%
   ggplot(aes(x=altitude_mean_meters_adj)) +
@@ -149,11 +149,11 @@ colnames(model_df)
 colnames(eda_df)
 
 # Save modeling, EDA sets
-save_splits = FALSE
+save_splits = TRUE
 
 if (save_splits) {
-  write.csv(model_df, "model_df_v2.csv", row.names = FALSE)
-  write.csv(eda_df,"eda_df_v2.csv", row.names = FALSE)
+  write.csv(model_df, "model_df_v3.csv", row.names = FALSE)
+  write.csv(eda_df,"eda_df_v3.csv", row.names = FALSE)
 }
 ```
 

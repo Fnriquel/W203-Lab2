@@ -14,10 +14,10 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 
 
 ```{r}
-#install.packages("patchwork")
-#install.packages("sandwich")
-#install.packages("lmtest")
-#install.packages('fastDummies')
+install.packages("patchwork")
+install.packages("sandwich")
+install.packages("lmtest")
+install.packages('fastDummies')
 library('fastDummies')
 library(tidyverse)
 library(magrittr)
@@ -137,7 +137,22 @@ The base model indicates a effect size of -0.493 with a coefficient of determina
 
 The second model includes additional explanatory variables `Non_tropical`, which are expected to explain meaningful aspects of the data. With the addition of the tropical information, the second model indicates a effect size of -0.325 with a coefficient of determination of 0.152. It indicates that if the growing region of one coffee bean being moved out from tropical region, the total cup score will have a 1.224 unit drop. This shows that the tropical information contributes a big part to the second model and dilutes the effect size of altitude variable. 
 
+<<<<<<< HEAD
 The third model, which includes the explanatory variables from the second model while also adding in control variables, shows an increase in explanatory power (0.236 vs. 0.152). The addition of these control variables results in a reduction of effect size on an absolute value basis across all of the explanatory variables; however, the altitude variable effect size remains relatively stable from a practical perspective (-0.281 vs. 0.325).
+=======
+```{r}
+#cov(model_df)
+install.packages("corrplot")
+library(corrplot)
+model_cor=model_df[1:13]
+correlation_df<-cor(model_cor,model_cor, method="pearson", use="all.obs")
+colnames(correlation_df) <- c("Total_Cup", "Altitude", "Total_defects", "Processing_Other", "Processing_Pulped", "Processing_Semi_Washed", "Processing_Washed", "Variety_Bourbon", "Variety_Catuai", "Variety_Caturra", "Variety_Typica", "Variety_Yellow", "Non_Tropical")
+rownames(correlation_df) <- c("Total_Cup", "Altitude", "Total_defects", "Processing_Other", "Processing_Pulped", "Processing_Semi_Washed", "Processing_Washed", "Variety_Bourbon", "Variety_Catuai", "Variety_Caturra", "Variety_Typica", "Variety_Yellow", "Non_Tropical")
+corrplot(correlation_df, method = 'number', number.cex = 0.5, col="black",tl.cex = 0.5, tl.offset = 1)
+
+
+```
+>>>>>>> 53a4c4aa6282e2ea4f06bb7dc66c7f8344dc1e91
 
 The final model selected is thus as follows:
 
