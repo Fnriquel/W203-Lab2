@@ -11,10 +11,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r}
-#install.packages("patchwork")
-#install.packages("sandwich")
-#install.packages("lmtest")
-#install.packages('fastDummies')
+install.packages("patchwork")
+install.packages("sandwich")
+install.packages("lmtest")
+install.packages('fastDummies')
 library('fastDummies')
 library(tidyverse)
 library(magrittr)
@@ -76,6 +76,15 @@ summary(model4)
 
 
 
+```{r}
+#cov(model_df)
+install.packages("corrplot")
+library(corrplot)
+correlation_df<-cor(model_df[1:13],model_df[1:13], method="spearman", use="pairwise.complete.obs")
+colnames(correlation_df) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13")
+rownames(correlation_df) <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13")
+corrplot(correlation_df, method = 'number', number.cex = 0.5)
+```
 
 
 
