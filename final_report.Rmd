@@ -1,7 +1,7 @@
 ---
 title: "Identifying Determinants of Coffee Bean Quality"
-author: "John-Tianyu-Fabian"
-date: '2022-04-11'
+author: "John Calzaretta, Tianyu Wang, Fabian Riquelme"
+date: 'April 12, 2022'
 header-includes:
    - \usepackage{amsmath}
 output: 
@@ -25,8 +25,10 @@ library(corrplot)
 ```
 
 ```{r data loading}
-eda_df <- read.csv("eda_df_v3.csv")
-model_df <- read.csv("model_df_v4.csv") %>% mutate(altitude_e100 = altitude_mean_meters_adj / 100) %>% drop_na(dist_equator)
+eda_df <- read.csv("eda_df_v4.csv")
+model_df <- read.csv("model_df_v4.csv") %>% 
+  mutate(altitude_e100 = altitude_mean_meters_adj / 100) %>% 
+  drop_na(dist_equator)
 ```
 
 ```{r data cleaning}
@@ -45,11 +47,11 @@ df$variety_adj = ifelse(df$Variety %in% top_5_variety, df$Variety, "Other")
 ```
 # Introduction
 
-## Movtivation
+## Motivation
 
 The average American consumes ~2 cups of coffee per day, making coffee the preferred American drink (Holcomb, 2021). The coffee market is expected to grow 13.2% yearly over the next 4 years (Maida, 2022). Though some brew coffee at home to save money, it is generally known that the best coffee comes from a true coffee shop, where trained baristas used complex machinery to delicately convert specialty coffee beans into a delicious drink. There are many different ways to brew and consume coffee; some prefer espresso, some prefer pour-over, others prefer drip coffee. However, the brewing process only has a minor effect on the quality of the end product; instead, the quality of coffee is primarily determined by the quality of the bean sourced.  
 
-Before making it to the local coffee shop, the coffee bean goes through a lengthy cultivation, harvesting, and treatment process. The coffee bean is actually a seed extracted from a coffee cherry, the fruit of a coffee tree. Coffee trees are farmed under very specific conditions, primarily in warm climates around the world. Once a coffee tree is ready for harvest, the bean is extracted from the coffee cherry before being processed or washed and then shipped to different buyers around the world. Existing literature shows that the location of the farm is critical for the bean quality. Primarily, higher altitude has been shown to result in higher quality beans (Fleisher, 2017). This is largely because higher altitudes cause slower photosynthesis, which allows plants to metabolize nutrients more gradually and produce bigger and higher quality beans (Aprile 2017). Additionally, the distance from the equator has a significant impact; the coffee belt refers to the many farms within 30 miles from the equator (Clayton, 2021). Each step of the cultivation, harvesting, and washing process has a tremendous impact on the quality of the final product. Given this, coffee shops and distributors place great attention and emphasis on sourcing quality beans in order to improve their product.  
+Before making it to the local coffee shop, the coffee bean goes through a lengthy cultivation, harvesting, and treatment process. The coffee bean is actually a seed extracted from a coffee cherry, the fruit of a coffee tree. Coffee trees are farmed under very specific conditions, primarily in warm climates around the world. Once a coffee tree is ready for harvest, the bean is extracted from the coffee cherry before being processed or washed and then shipped to different buyers around the world. Existing literature shows that the location of the farm is critical for the bean quality. Primarily, higher altitude has been shown to result in higher quality beans (Fleisher, 2017). This is largely because higher altitudes cause slower photosynthesis, which allows plants to metabolize nutrients more gradually and produce bigger and higher quality beans (Aprile 2017). Additionally, the distance from the equator has a significant impact; the "coffee belt" refers to the many farms within 30 miles from the equator (Clayton, 2021). Each step of the cultivation, harvesting, and washing process has a tremendous impact on the quality of the final product. Given this, coffee shops and bean distributors place great attention and emphasis on sourcing quality beans in order to improve their product.  
 
 To provide transparency to the coffee market, each bean is assessed by a set of trained judges every year. The Coffee Quality Institute (CQI) determines the “total cup score” of each bean through a rigorous, and consistent process to prevent bias from affecting the total cup scores. Total cup score is a metric first defined by the Specialty Coffee Association, and it is the result of rating 10 different attributes of the coffee on a scale 6-10  (such as aroma, acidity, flavor, balance, etc.) and then summing across dimensions for the total score. For each bean, the total cup score is determined by a “Q Grader”, who first has to pass a series of certification tests by the CQI to qualify. The CQI also imposes rules on the Q Graders to ensure the integrity of bean ratings and avoid bias on database:  
 
@@ -62,7 +64,7 @@ This total cup score is commonly used to evaluate different coffees for importat
 
 ## Research Question
 
-The goal of this analysis is to understand the key determinants of coffee bean quality (total cup score), to enable farmers to grow better beans and coffee shop owners to source better beans. In particular, this analysis will seek to understand the causal impact of altitude on bean quality through the use of linear models. The main research question is:   
+The goal of this analysis is to understand the key determinants of coffee bean quality (total cup score), to enable farmers to grow better beans and coffee shop owners to source beans fro the right farms. In particular, this analysis will seek to understand the causal impact of altitude on bean quality through the use of linear models. The main research question is:   
 
 
 > How does the altitude of the bean cultivation affect the bean’s total cup score?  
@@ -75,12 +77,12 @@ Given the importance of sourcing quality beans and the expected growth of the co
 
 ## About the Data
 
-Our analysis leverages a dataset produced by the Coffee Quality Institute (CQI) and hosted on Kaggle. After cleaning, the dataset has about 1,000 total records of Arabica coffee beans produced by different suppliers in a range of countries, spanning from 2009 through 2018. Each record includes the total cup score of the bean, as well as descriptive data points on the type of bean, the cultivation process, and the location of cultivation. 
+Our analysis leverages a data set produced by the Coffee Quality Institute (CQI) and hosted on Kaggle. After cleaning, the data set has about 1,000 total records of Arabica coffee beans produced by different suppliers in a range of countries, spanning from 2009 through 2018. Each record includes the total cup score of the bean, as well as descriptive data points on the type of bean, the cultivation process, and the location of cultivation. 
 
-A second dataset, sourced from Kaggle was used to map the latitude of each country into the data. 
+A second data set, sourced from Kaggle, was used to map the latitude of each country into the data. 
 
 ## Total Cup Score Characteristics
-The total cup score variable is the outcome variable of interest. Each coffee bean in our dataset has a score between 60-100 since it is the sum of 10 coffee attributes, each rated on a scale of 6-10. According to the Specialty Coffee Association of America, the component attributes are:
+The total cup score variable is the outcome variable of interest. Each coffee bean in our data set has a score between 60-100 since it is the sum of 10 coffee attributes, each rated on a scale of 6-10. According to the Specialty Coffee Association of America, the component attributes are:
 
 ```{r table1}
 table1 <- data.frame(Attribute = c("Acidity","Flavor","Aroma",
@@ -97,67 +99,65 @@ table1 <- data.frame(Attribute = c("Acidity","Flavor","Aroma",
                                      "From sugary (good) to astringent flavors (bad)",
                                      "Lack of any negative attribute across consumption process","General score from grader"
 ))
-kable(table1)
+kable(table1,
+  caption = 'Total Cup Score Component Rankings', 
+  booktabs = TRUE)
 ```
 
 The probability density function (pdf) of total cup score approximates a normal distribution with a left skew, as shown in Figure 1. This is likely a result of some beans being very low quality due to poor conditions or mistakes in the cultivation. The total cup score variable has a mean of 82 points and standard deviation of 3.2 points. 
 
-
-```{r cup score pdf}
-## Numerical: Histogram
+```{r cup score pdf, fig.align='center', fig.width=5, fig.height=3}
 cup_hist <- eda_df %>% 
   ggplot(aes(x=Total.Cup.Points)) + geom_density() +
   labs(title="Figure 1: Distribution of Total Cup Points",
        x="Total Cup Score", y="Density") + 
   theme(
-    plot.title = element_text(size=10, face="bold.italic", hjust=0.5),
+    plot.title = element_text(size=12, face="bold.italic", hjust=0.5),
     axis.title.x = element_text(size=10, face="bold"),
     axis.title.y = element_text(size=10, face="bold")
     )
-#ggsave("plots/cup_dist.png", width = 6, height = 4)
 
+cup_hist
+```
+
+
+## Coffee Bean Makeup and Cultivation Characteristics
+The altitude variable is our main right hand side (RHS) variable. Altitude is measured in both meters and feet in the initial data set, and we converted the feet measures into meters to standardize. It has a mean of 1,252 meters and standard deviation of 538 meters. As shown in Figure 2, there are two local maxima in the pdf of altitude: one around 450m and the other around 1300m. This is likely because some bean cultivators grow cheaper beans at lower altitude for traditional blends and others focus on higher quality beans with more intense flavors (Stopsack, 2017). The initial data set had a few records of beans with altitudes over ~3,000 meters (up to 6,000m), which is significantly higher than the majority of the distribution. These were filtered out as they were outliers and less than 1% of the sample. 
+```{r altitude pdf, fig.align='center', fig.width=5, fig.height=3}
 alt_hist <- eda_df %>% 
   ggplot(aes(x=altitude_mean_meters_adj)) + geom_density() +
     labs(title="Figure 2: Distribution of Altitude",
        x="Altitude (meters)", y="Density") + 
   theme(
-    plot.title = element_text(size=10, face="bold.italic", hjust=0.5),
+    plot.title = element_text(size=12, face="bold.italic", hjust=0.5),
     axis.title.x = element_text(size=10, face="bold"),
     axis.title.y = element_text(size=10, face="bold")
     )
-#ggsave("plots/altitude_dist.png", width = 6, height = 4)
 
-cup_hist | alt_hist
+alt_hist
 ```
-
-
-## Coffee Bean Makeup and Cultivation Characteristics
-The altitude variable is our main right hand side (RHS) variable. Altitude is measured in both meters and feet in the initial dataset, and we converted the feet measures into meters to standardize. It has a mean of 1,252 meters and standard deviation of 538 meters. As shown in Figure 2, there are two local maxima in the pdf of altitude: one around 450m and the other around 1300m. This is likely because some bean cultivators grow cheaper beans at lower altitude for traditional blends and others focus on higher quality beans with more intense flavors (Stopsack, 2017). The initial dataset had a few records of beans with altitudes over ~3,000 meters (up to 6,000m), which is significantly higher than the majority of the distribution. These were filtered out as they were outliers and less than 1% of the sample.  
  
-Preliminary data exploration (on a holdout set) shows a positive relationship between the altitude measure and the total cup score, as shown in Figure 3. The relationship is linear with small residual bounds across the range of altitude values. Intuitively, it seems likely that as altitude reaches extreme levels that bean production would not thrive given the cold conditions and difficulty of farming. Given this, we can expect that the altitude has a positive effect on bean quality up until a certain point, after which it decreases. It seems that the farmers of beans in this dataset have discovered this maximum altitude and largely avoided it, likely due to the cost of operating at higher altitudes. To account for this potential non-linear relationship, we will create an altitude-squared feature to include in one of our linear models. If our models validate that altitude has a causal effect on the total cup score, we can recommend that coffee shops source beans from the farms that are in the ideal altitude range. Additionally, we can recommend that farms search for land at higher altitudes when planting the beans.
+Preliminary data exploration (on a holdout set) shows a positive relationship between the altitude measure and the total cup score, as shown in Figure 3. The relationship is linear with small residual bounds across the range of altitude values. Intuitively, it seems likely that as altitude reaches extreme levels that bean production would not thrive given the cold conditions and difficulty of farming. Given this, we can expect that the altitude has a positive effect on bean quality up until a certain point, after which it decreases. It seems that the farmers of beans in this data set have discovered this maximum altitude and largely avoided it, likely due to the cost of operating at higher altitudes. To account for this potential non-linear relationship, we will create an altitude-squared feature to include in one of our linear models. If our models validate that altitude has a causal effect on the total cup score, we can recommend that coffee shops source beans from the farms that are in the ideal altitude range. Additionally, we can recommend that farms search for land at higher altitudes when planting the beans.
 
-```{r altitude v cup score}
+```{r altitude v cup score, fig.align='center', fig.width=5, fig.height=3}
 alt_points <- eda_df %>%
   ggplot(aes(x=altitude_mean_meters_adj, y=Total.Cup.Points)) + 
   geom_point() + geom_smooth(method = "lm") +
     labs(title="Figure 3: Relationship Between Altitude and Total Cup Points",
        x="Altitude (meters)", y="Total Cup Points") + 
   theme(
-    plot.title = element_text(size=14, face="bold.italic", hjust=0.5),
+    plot.title = element_text(size=12, face="bold.italic", hjust=0.5),
     axis.title.x = element_text(size=10, face="bold"),
     axis.title.y = element_text(size=10, face="bold")
     )
-ggsave("plots/altitude_cupscore_scatter.png", width = 8, height = 4)
 
 alt_points
 ```
 
-
-Our models will include additional covariates to provide more detailed insights into the many attributes that make up a quality coffee bean. If we encounter other variables that can also generate a causal effect on the total cup score we will be able to provide a better and more complete recommendation to local coffee shops. In our analysis, we also explored the relationship between the total defects variable and total cup points. The dataset contains counts of Category One and Category Two defects per bean, which are summed to derive the total defect. Category One defects occur when beans are full black or sour, and Category Two defects occur when beans are either chipped, partially black or sour, have insect damage, or have water damage. Figure 4 below shows a negative linear relationship between the number of defects and total cup points, which is what we expected based on intuition alone. A deeper analysis showed that the sum of defects had a stronger relationship with total cup score than either of the two defect categories alone.
-
+Our models will include additional covariates to provide more detailed insights into the many attributes that make up a quality coffee bean. If we encounter other variables that can also generate a causal effect on the total cup score we will be able to provide a better and more complete recommendation to local coffee shops. In our analysis, we also explored the relationship between the total defects variable and total cup points. The data set contains counts of Category One and Category Two defects per bean, which are summed to derive the total defect. Category One defects occur when beans are full black or sour, and Category Two defects occur when beans are either chipped, partially black or sour, have insect damage, or have water damage. Figure 4 below shows a negative linear relationship between the number of defects and total cup points, which is what we expected based on intuition alone. A deeper analysis showed that the sum of defects had a stronger relationship with total cup score than either of the two defect categories alone.
 
 
-```{r defect and TCS}
+```{r defect and TCS, fig.align='center', fig.width=5, fig.height=3}
 defect_tcs <- eda_df %>% 
   ggplot(aes(x=total_defects, y=Total.Cup.Points)) + 
   geom_point() + geom_smooth(method='lm') + 
@@ -174,7 +174,7 @@ defect_tcs
 
 Another predictor of interest is the distance of bean cultivation from the equator. Research suggests that the best region of bean cultivation (called the “Bean Belt”) is near the equator, between the tropic of Cancer and the tropic of Capricorn. The feature we used to account for this is the distance from the equator of the Country of cultivation. Our data shows a negative linear relationship between the distance from the equator and total cup points.  
 
-```{r}
+```{r, fig.align='center', fig.width=5, fig.height=3}
 dist_tcs <- model_df %>% 
   ggplot(aes(x=dist_equator, y=Total.Cup.Points)) + 
   geom_point() + geom_smooth(method='lm') + 
@@ -187,23 +187,44 @@ dist_tcs <- model_df %>%
     )
 
 dist_tcs
-
 ```
 In addition to the metric variables discussed above, our analysis explored the use of the bean variety and processing method categories as controls in our linear models.  
 
-- Processing Method: Refers to the way in which a seed is removed from a coffee cherry after harvesting. Each method affects the body, sweetness, and acidity of the brewed coffee. The classes in this variable include: Natural/Dry, Washed/Wet, Semi-Washed, Honey, and Other processing methods. Figure X shows the distribution of processing methods: 
+- Processing Method: Refers to the way in which a seed is removed from a coffee cherry after harvesting. Each method affects the body, sweetness, and acidity of the brewed coffee. The classes in this variable include: Natural/Dry, Washed/Wet, Semi-Washed, Honey, and Other processing methods. Table 2 shows the distribution of processing methods: 
 
 ```{r}
-t2 <- df %>% count(Processing.Method) %>% arrange(n)
-kable(t2)
+summary_table <- df %>%
+  group_by(Processing.Method) %>%
+  summarize(count = n()) %>%
+  mutate(prop = round(count/ sum(count), 3)) %>%
+  arrange(desc(prop)) %>%
+  rename('Count' = count, 'Proportion of Sample' = prop, 
+         'Processing Method' = Processing.Method)
+
+kable(
+  summary_table,
+  digits = 2,
+  caption = 'Distribution of Process Methods', 
+  booktabs = TRUE, 
+)
 ```
 
-- Variety: Within the Arabica species, there are several varieties of coffee beans. The dataset includes 28 total varieties; however, we decided to select the top 5 categories (which account for 74% of the data) and assign each other variety to the “Other” category. The top 5 varieties are Caturra, Typica, Bourbon, Catuai, and Yellow Bourbon. Figure Z shows the distribution of bean varieties:
-
+- Variety: Within the Arabica species, there are several varieties of coffee beans. The data set includes 28 total varieties; however, we decided to select the top 5 categories (which account for 74% of the data) and assign each other variety to the “Other” category. The top 5 varieties are Caturra, Typica, Bourbon, Catuai, and Yellow Bourbon. Table 3 shows the distribution of bean varieties:
 
 ```{r}
-t3 <- df %>% count(Variety) %>% arrange(n)
-kable(t3)
+summary_table <- df %>%
+  group_by(variety_adj) %>%
+  summarize(count = n()) %>%
+  mutate(prop = round(count/ sum(count), 3)) %>%
+  arrange(desc(prop)) %>%
+  rename('Count' = count, 'Proportion of Sample' = prop, 'Variety' = variety_adj)
+
+kable(
+  summary_table,
+  digits = 2,
+  caption = 'Distribution of Bean Varieties', 
+  booktabs = TRUE, 
+)
 ```
 
 Regarding transformations, the altitude feature was divided by 100 to better interpret coefficients in 100m increments, rather than 1m increments. The categorical variables were converted into dummy variables for use in modeling. For the Processing Method dummy features, the “Natural/Dry” method was held out. For the Variety dummy features, the “Other” variety type was held out.   
@@ -216,8 +237,7 @@ In this study, we will focus on the altitude variables as the main dependent var
 
 
 # Modeling
-As mentioned from the previous section of exploratory data analysis, we found a positive relationship between the altitude measure and the total cup score. Therefore, altitude is being chosen as the key variable in our model. 
-On top of the altitude, the climate and environment which coffee beans are growing in is considered as an additional factor which can impact the quality. Since coffee plants are well grown between the tropic of Cancer and the tropic of Capricorn, usually termed the bean belt or the coffee belt, we will mainly investigate the climate difference between tropical and non-tropical regions. In this study, the latitude information of each country is integrated from an extra data set which allows us to define the region of each country.  
+As mentioned from the previous section of exploratory data analysis, we found a positive relationship between the altitude measure and the total cup score. Therefore, altitude is being chosen as the key variable in our model. In addition to altitude altitude, the climate and environment which coffee beans are growing in is considered as an additional factor which can impact the quality. Since coffee plants are well grown between the tropic of Cancer and the tropic of Capricorn, usually termed the bean belt or the coffee belt, we will mainly investigate the climate difference between tropical and non-tropical regions. In this study, the latitude information of each country is integrated from an extra data set which allows us to define the region of each country.  
 
 Beyond the two geographical factors mentioned above, we are considering to include the properties and processes that are associated with the beans as control variables in our model:  
 
@@ -225,20 +245,31 @@ Beyond the two geographical factors mentioned above, we are considering to inclu
 - Variety
 - Total Defects  
 
-While conducting the analysis and modeling, we found that the Total score increment described by the effect size will be too small if the variable unit increases by every meter. Thus, `altitude_e100` column is generated from the original altitude information divided by 100.
+While conducting the analysis and modeling, we found that the Total score increment described by the effect size will be too small if the variable unit increases by every meter. Thus, `altitude_e100` column is generated from the original altitude information divided by 100. The below plots capture the distrubtions of each covariate.
+
+```{r distribution, fig.align='center', fig.width=10, fig.height=8}
+d_points <- model_df %>% ggplot(aes(Total.Cup.Points)) + geom_histogram() +
+   labs(x="Total Cup Score", y="Count")
+d_altitude <- model_df %>% ggplot(aes(altitude_e100)) + geom_histogram(bins = 60)+
+   labs(x="Altitude (100m)", y="Count")
+d_tropical <- model_df %>% ggplot(aes(dist_equator)) + geom_histogram() +
+   labs(x="Distance from Equator", y="Count")
+d_defects <- model_df %>% ggplot(aes(total_defects)) + geom_histogram()+
+   labs(x="Total Defects", y="Count")
+d_variety <- eda_df %>% ggplot(aes(variety_adj)) + geom_histogram()+
+   labs(x="Total Defects", y="Count")
+d_variety <- eda_df %>% 
+  ggplot(aes(x=fct_infreq(variety_adj))) + geom_bar() +
+    labs(x="Variety", y="Count") + theme(axis.text.x = element_text(angle=15))
+d_proc <- eda_df %>% 
+  ggplot(aes(x=fct_infreq(Processing.Method))) + geom_bar() +
+    labs(x="Processing Method", y="Count") + theme(axis.text.x = element_text(angle=15))
+
+d_points / d_altitude /d_variety |
+  d_defects /d_tropical / d_proc
+``` 
 
 The analysis seeks to understand the causal impact of altitude on bean quality with a set of linear models: one model with a single explanatory variable (altitude), and several other model specifications that introduce additional covariates. 
-
-
-```{r distribution}
-d_points <- model_df %>% ggplot(aes(Total.Cup.Points)) + geom_histogram()
-d_altitude <- model_df %>% ggplot(aes(altitude_e100)) + geom_histogram(bins = 60)
-d_tropical <- model_df %>% ggplot(aes(Non_Tropical)) + geom_histogram()
-d_defects <- model_df %>% ggplot(aes(total_defects)) + geom_histogram()
-
-d_points / d_altitude |
-  d_defects /d_tropical
-``` 
 
 ## Base Model
 
@@ -335,7 +366,7 @@ $$
 
 This means that at an altitude of 0, a 100-unit increase in altitude will decrease the total cup score by 0.337 points. However the rate of change of altitude is positive and increases at a rate of 0.044 for every additional 100 meters of altitude. Therefore, at an altitude of 1,000 meters (10 units of altitude_e100), a 100 meter increase in the altitude will increase the total cup score by 0.103 units (2*0.022*10 - 0.230). This means that the total cup score is minimized at an altitude of 766 meters, after which the total cup score increases for each increase in altitude.  
 
-The third model includes the distance from the equator variable, which is expected to explain meaningful aspects of the data. The effect size of the new variable is -0.068 with a coefficient of determination of 0.131. It indicates that a 1 degree increase in the latitude will decrease the total cup score by 0.068 units. With a F test p value of `r w2$'Pr(>F)'[2]`, the third model with additional distance from the equator variable fits better to the data than the base model.    
+The third model includes the distance from the equator variable, which is expected to explain meaningful aspects of the data. The effect size of the new variable is -0.068 with a coefficient of determination of 0.131. It indicates that a 1 degree increase in the latitude will decrease the total cup score by 0.068 units. With a F test p value of `r w2$'Pr(>F)'[2]`, the third model with additional distance from the equator variable fits better to the data than the base model.
 
 The fourth model, which includes the explanatory variables from the third model while also adding in control variables, shows an increase in explanatory power (Adjusted $R^2$ 0.229 vs. 0.131). The addition of these control variables results in a reduction of effect size on an absolute value basis across all of the explanatory variables. For the variety variable, it shows that Catuai, Caturra, Typica, and Yellow Bourbon would have a statistically significant effect on the total cup score with the effect size of -1.573,-0.445,-0.890, and -1.106 respectively. Also, the fourth model indicates an effect size of -0.967 and -0.869 for the wet wash and other processing method respectively, which means that the wet wash method results in a 0.931 lower cup score compared to the dry processing method, and the other wash method results in a 0.869 lower cup score compared to the dry processing method. Again, with a F-test p value of `r w3$'Pr(>F)'[2]`, the fourth model which includes these control variables should be considered as the most representative one for our data among all four models.  
 
@@ -354,11 +385,11 @@ The total cup score of coffee beans is impacted by its growing altitude. At the 
 
 ## Testing OLS model Assumptions
 
-As we have completed the model analysis, we want to evaluate the assumptions used on the regression model. As a primary factor, we need to evaluate the amount of data that we have for our regression model. The assumptions for a model with a big amount of data are less restrictive than small ones used as we can rely on asymptotic properties like the Central Limit Theorem giving as statistics guarantees. This analysis was conducted using a dataset of ~1,000 records after cleaning the data, 30% of which were used for an exploratory data analysis and 70% used for modeling. Given this large sample size, we will need to evaluate that the data points  are I.I.D ,the BLP exists and is unique.   
+As we have completed the model analysis, we want to evaluate the assumptions used on the regression model. As a primary factor, we need to evaluate the amount of data that we have for our regression model. The assumptions for a model with a big amount of data are less restrictive than small ones used as we can rely on asymptotic properties like the Central Limit Theorem giving as statistics guarantees. This analysis was conducted using a data set of ~1,000 records after cleaning the data, 30% of which were used for an exploratory data analysis and 70% used for modeling. Given this large sample size, we will need to evaluate that the data points  are I.I.D ,the BLP exists and is unique.   
 
 ### Assumption 1: Independent and Identically Distributed (I.I.D)
 
-Regarding the independence assumption, there are a few ways in which this assumption may be infringed. Given the beans come from certain regions, mostly close to the Earth’s equator, there is likely an influence of geographical clustering in the dataset. Additionally, some beans are planted by the same farm organization or owner, or sourced by the same supplier. Finally, there may be instances of competition in which one farmer mimics the decisions of another in planting beans. Thus, we can not assume there is perfect independence in the sample.
+Regarding the independence assumption, there are a few ways in which this assumption may be infringed. Given the beans come from certain regions, mostly close to the Earth’s equator, there is likely an influence of geographical clustering in the data set. Additionally, some beans are planted by the same farm organization or owner, or sourced by the same supplier. Finally, there may be instances of competition in which one farmer mimics the decisions of another in planting beans. Thus, we can not assume there is perfect independence in the sample.
 Regarding the identically distributed assumption, the beans all belong to the same population distribution of total cup score. The Coffee Quality Institute (CQI) determines the total cup score of each bean through a rigorous, and consistent process to prevent bias from affecting the total cup scores. Given that each bean comes from the same population and the CQI ensures that ratings are as objective as possible, the identically distributed assumption is met.
 
 ### Assumption 2: A Unique BLP Exists
@@ -382,9 +413,9 @@ Up to this point we have evaluated our model based on the assumption that the ca
 To assess these assumptions, we evaluate potential omitted variables and the effect each may have on the estimates if our causal theory is incorrect.   
 - Temperature: Extreme temperatures (low and high) can affect the harvest of any plant. For coffee beans, mild, consistent temperatures are generally preferred. This could explain in part why most coffee beans are produced in the warm regions near the Earth’s equator. Temperature is likely to be correlated with the distance from the equator variable in our models as tropical areas are warmer than the non-tropical areas. Temperature also has a relationship with the quality of the coffee harvested. Research shows that beans grow better in mild temperatures than in hot or cool temperatures, which means that there is a non-linear relationship between temperature and bean rating. Additionally, changes in temperature due to global warming likely have an effect on the quality of the coffee bean. The omitted variable temperature has multiple effects on the coefficient and affects multiple variables simultaneously, therefore, we can’t accurately estimate its effect on the coefficients.   
 
-- Soil: The health of a coffee tree depends on the quality of the nutrients that are provided in the soil. Ideally, our dataset would include an expert rating on the quality of the soil, which would likely explain some additional variance in the total cup score distribution. The quality of soil is likely to be negatively correlated with the number of defects variable in our models. The omission of this variable is pushing the coefficient of total defects to be higher than its true value, thus the bias is positive and away from zero.
+- Soil: The health of a coffee tree depends on the quality of the nutrients that are provided in the soil. Ideally, our data set would include an expert rating on the quality of the soil, which would likely explain some additional variance in the total cup score distribution. The quality of soil is likely to be negatively correlated with the number of defects variable in our models. The omission of this variable is pushing the coefficient of total defects to be higher than its true value, thus the bias is positive and away from zero.
 
-- Water: The right amount of watering is another essential variable in the development of the coffee bean. Similar to temperature, there is a sweet spot for each plant; the absence of water can cause the coffee bean not to develop to a correct size and flavor, and too much water can end up killing the tree roots. This variable does not have a linear relationship with total cup score and therefore its effect is very complex to describe, therefore, we can’t accurately estimate its effect on the coefficients.  
+- Water: The right amount of watering is another essential variable in the development of the coffee bean. Similar to temperature, there is a sweet spot for each plant; the absence of water can cause the coffee bean not to develop to a correct size and flavor, and too much water can end up killing the tree roots. This variable does not have a linear relationship with total cup score and therefore, we can’t accurately estimate its effect on the coefficients.  
 
 - Sunshine: Traditionally, quality Arabica coffee beans are grown under a canopy of trees to generate shade (Byloos, 2017). Farmers of Arabica beans want to provide shade throughout the day, and only allow trace amounts of sunshine to reach the beans. The omitted variable sunshine is thus negatively correlated with coffee quality but doesn't have a direct relation to the independent variables. There is no bias on the covariate coefficients but, the lack of this variable of the model reduces the power of the model to explain the variance in the total cup point variable.  
 
@@ -393,113 +424,9 @@ After evaluating the potential omitted values, we believe that there are some im
 
 # Conclusion  
 
-The goal of this study was to understand the relationship between altitude and coffee bean ratings. We primarily used a dataset produced by the Coffee Quality Institute, where each record includes the total cup score of the bean, as well as descriptive data points on the type of bean, the cultivation process, and the location of cultivation. Coffee bean quality rating was defined by the total cup score, which is a criteria for qualified coffee reviewers to measure. We used the altitude of the bean farm, and introduced several other metric and categorical variables that capture information about the bean makeup and cultivation methods.  
+The goal of this study was to understand the relationship between altitude and coffee bean ratings. We primarily used a data set produced by the Coffee Quality Institute, where each record includes the total cup score of the bean, as well as descriptive data points on the type of bean, the cultivation process, and the location of cultivation. Coffee bean quality rating was defined by the total cup score, which is a criteria for qualified coffee reviewers to measure. We used the altitude of the bean farm, and introduced several other metric and categorical variables that capture information about the bean makeup and cultivation methods.  
 
-Based on the results of this analysis we conclude that the altitude where the beans are being farmed has a significant effect on the quality of the coffee. In the base model, the total cup score increases by 0.128 for each 100 meters of increment of altitude. Though the effect is practically small, an increase by just a few total cup points could make a large difference in the competitive advantage of a coffee distributor. The findings of this study should be of interest to coffee shops, who need to source quality beans from the right location, and coffee farmers, who need to make real estate and cultivation decisions to grow quality beans. As the coffee industry continues to expand, it is of primary interest for these stakeholders to improve the quality of their products and expand clientele along with the market.
-
-
-<!-- # Appendix -->
-
-```{r variety scatter, eval=FALSE, include=FALSE}
-variety_tcs <- eda_df %>% 
-  ggplot(aes(x=variety_adj, y=Total.Cup.Points)) + geom_bar(stat='summary', fun='mean') +
-    labs(title="Figure 5: Relationship of Bean Variety and Total Cup Points",
-       x="Variety", y="Mean Total Cup Points") + 
-  theme(
-    plot.title = element_text(size=12, face="bold.italic", hjust=0.5),
-    axis.title.x = element_text(size=10, face="bold"),
-    axis.title.y = element_text(size=10, face="bold")
-    )
-variety_tcs
-```
-
-```{r proc method scatter, eval=FALSE, include=FALSE}
-proc_tcs <- eda_df %>% 
-  ggplot(aes(x=Processing.Method, y=Total.Cup.Points)) + geom_bar(stat='summary', fun='mean') +
-    labs(title="Figure 6: Relationship of Processing Method and Total Cup Points",
-       x="Processing Method", y="Mean Total Cup Points") + 
-  theme(
-    plot.title = element_text(size=12, face="bold.italic", hjust=0.5),
-    axis.title.x = element_text(size=10, face="bold"),
-    axis.title.y = element_text(size=10, face="bold"),
-    axis.text.x = element_text(angle=90)
-    )
-proc_tcs
-```
-
-```{r climate scatter, eval=FALSE, include=FALSE}
-trop_tcs <- eda_df %>% 
-  mutate(Trop_Ind = ifelse(eda_df$Non_Tropical==0, 'Tropical', 'Non-Tropical')) %>%
-  ggplot(aes(x=Trop_Ind, y=Total.Cup.Points)) + geom_bar(stat='summary', fun='mean') +
-    labs(title="Figure 4: Relationship of Climate Region and Total Cup Points",
-       x="Climate", y="Mean Total Cup Points") + 
-  theme(
-    plot.title = element_text(size=12, face="bold.italic", hjust=0.5),
-    axis.title.x = element_text(size=10, face="bold"),
-    axis.title.y = element_text(size=10, face="bold")
-    )
-trop_tcs
-```
-
-
-
-```{r defect histogram, eval=FALSE, include=FALSE}
-# Show distributions of: variety, processing methods, tropical, total defects
-defect_hist <- eda_df %>% 
-  ggplot(aes(x=total_defects)) + geom_histogram() +
-    labs(title="Figure 4: Distribution of Total Defects",
-       x="Total Defects", y="Count") + 
-  theme(
-    plot.title = element_text(size=12, face="bold.italic", hjust=0.5),
-    axis.title.x = element_text(size=10, face="bold"),
-    axis.title.y = element_text(size=10, face="bold")
-    )
-
-variety_hist <- eda_df %>% 
-  ggplot(aes(x=fct_infreq(variety_adj))) + geom_bar() +
-    labs(title="Figure 5: Distribution of Bean Variety",
-       x="Variety", y="Count") + 
-  theme(
-    plot.title = element_text(size=12, face="bold.italic", hjust=0.5),
-    axis.title.x = element_text(size=10, face="bold"),
-    axis.title.y = element_text(size=10, face="bold")
-    )
-
-proc_hist <- eda_df %>% 
-  ggplot(aes(x=fct_infreq(Processing.Method))) + geom_bar() +
-    labs(title="Figure 6: Distribution of Processing Method",
-       x="Processing Method", y="Count") + 
-  theme(
-    plot.title = element_text(size=12, face="bold.italic", hjust=0.5),
-    axis.title.x = element_text(size=10, face="bold"),
-    axis.title.y = element_text(size=10, face="bold")
-    )
-
-climate_hist <- eda_df %>%
-  mutate(Trop_Ind = ifelse(eda_df$Non_Tropical==0, 'Tropical', 'Non-Tropical')) %>%
-  ggplot(aes(x=fct_infreq(Trop_Ind))) + geom_bar() +
-    labs(title="Figure 7: Distribution of Climate Type",
-       x="Climate Type", y="Count") + 
-  theme(
-    plot.title = element_text(size=12, face="bold.italic", hjust=0.5),
-    axis.title.x = element_text(size=10, face="bold"),
-    axis.title.y = element_text(size=10, face="bold")
-    )
-
-defect_hist | variety_hist | proc_hist | climate_hist
-```
-
-```{r defect histogram2, eval=FALSE, include=FALSE}
-eda_df %>% 
-  count(variety_adj) %>%
-  arrange(desc(n))
-
-eda_df %>% 
-  count(Processing.Method) %>%
-  arrange(desc(n))
-
-
-```
+Based on the results of this analysis we conclude that the altitude of coffee bean farms has a significant effect on the quality of the coffee. In the base model, the total cup score increases by 0.128 for each 100 meters of increment of altitude. Though the effect is small, an increase by just a few total cup points could make a large difference in the competitive advantage of a coffee distributor. The findings of this study should be of interest to coffee shops, who need to source quality beans from the right location, and coffee farmers, who need to make real estate and cultivation decisions to grow quality beans. As the coffee industry continues to expand, it is of primary interest for these stakeholders to improve the quality of their products and expand clientele along with the market.
 
 
 
