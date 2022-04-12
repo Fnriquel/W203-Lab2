@@ -414,6 +414,27 @@ The goal of this study was to understand the relationship between altitude and c
 
 Based on the results of this analysis we conclude that the altitude of coffee bean farms has a significant effect on the quality of the coffee. In the base model, the total cup score increases by 0.128 for each 100 meters of increment of altitude. Though the effect is small, an increase by just a few total cup points could make a large difference in the competitive advantage of a coffee distributor. The findings of this study should be of interest to coffee shops, who need to source quality beans from the right location, and coffee farmers, who need to make real estate and cultivation decisions to grow quality beans. As the coffee industry continues to expand, it is of primary interest for these stakeholders to improve the quality of their products and expand clientele along with the market.
 
+\pagebreak
+
+# References
+
+Clayton, L. (2021, June 29). What Is The Coffee Belt? Sprudge. Retrieved April 6, 2022, from https://sprudge.com/what-is-the-coffee-belt-179028.html. 
+
+Coffee Processing Methods | Discover How Coffee Gets Made – Bean & Bean Coffee Roasters. (2021, January 18). Bean & Bean Coffee Roasters. Retrieved April 9, 2022, from https://beannbeancoffee.com/blogs/beansider/coffee-processing-methods. 
+
+Fleisher, J. (2017, October 16). The Effect of Altitude on Coffee Flavor. Scribblers Coffee Co. Retrieved April 6, 2022, from https://scribblerscoffee.com/blogs/news/the-effect-of-altitude-on-coffee-flavor. 
+
+Holcomb, W. (2021, May 8). 41 Surprising Coffee Statistics & Facts of 2022 That Will Blow Your Mind! Brew Smartly. Retrieved April 6, 2022, from https://brewsmartly.com/coffee-statistics/. 
+
+Maida, J. (2022, April 6). Specialty Coffee Shops Market Size to Grow by USD 68.59 Bn| Increasing Consumption of Coffee to boost market growth| Technavio. PR Newswire. Retrieved April 6, 2022, from https://www.prnewswire.com/news-releases/specialty-coffee-shops-market-size-to-grow-by-usd-68-59-bn-increasing-consumption-of-coffee-to-boost-market-growth-technavio-301517998.html. 
+
+Stopsack, N. (2017, February 16). Coffee Guide: The Affect of Altitude on Beans. Stoked Roasters. Retrieved April 9, 2022, from https://www.stokedroasters.com/blogs/news/coffee-guide-altitudes-affect-on-beans. 
+
+Cupping Protocols. Specialty Coffee Association of America. (n.d.). Retrieved 
+April 11, 2022, from http://www.scaa.org/?page=resources&d=cupping-protocols&source=post_page. 
+
+Aprile, H. (2015, May 27). Soil: The forgotten resource in coffee production. 
+Coffeelands. Retrieved April 11, 2022, from https://coffeelands.crs.org/2015/05/coffee-ground-the-importance-of-soil-health/#:~:text=The%20plant's%20health%2C%20determined%20by,produce%20bigger%20and%20better%20beans. 
 
 
 
