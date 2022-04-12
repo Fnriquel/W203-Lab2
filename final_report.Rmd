@@ -221,13 +221,24 @@ On top of the altitude, the climate and environment which coffee beans are growi
 
 Beyond the two geographical factors mentioned above, we are considering to include the properties and processes that are associated with the beans as control variables in our model:  
 
--Processing Method
--Variety
--Total Defects  
+- Processing Method
+- Variety
+- Total Defects  
 
 While conducting the analysis and modeling, we found that the Total score increment described by the effect size will be too small if the variable unit increases by every meter. Thus, `altitude_e100` column is generated from the original altitude information divided by 100.
 
 The analysis seeks to understand the causal impact of altitude on bean quality with a set of linear models: one model with a single explanatory variable (altitude), and several other model specifications that introduce additional covariates. 
+
+
+```{r distribution}
+d_points <- model_df %>% ggplot(aes(Total.Cup.Points)) + geom_histogram()
+d_altitude <- model_df %>% ggplot(aes(altitude_e100)) + geom_histogram(bins = 60)
+d_tropical <- model_df %>% ggplot(aes(Non_Tropical)) + geom_histogram()
+d_defects <- model_df %>% ggplot(aes(total_defects)) + geom_histogram()
+
+d_points / d_altitude |
+  d_defects /d_tropical
+``` 
 
 ## Base Model
 
