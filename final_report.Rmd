@@ -179,7 +179,7 @@ In addition to the metric variables discussed above, our analysis explored the u
 - Processing Method: Refers to the way in which a seed is removed from a coffee cherry after harvesting. Each method affects the body, sweetness, and acidity of the brewed coffee. The classes in this variable include: Natural/Dry, Washed/Wet, Semi-Washed, Honey, and Other processing methods. Table 2 shows the distribution of processing methods: 
 
 ```{r}
-summary_table <- df %>%
+summary_table <- eda_df %>%
   group_by(Processing.Method) %>%
   summarize(count = n()) %>%
   mutate(prop = round(count/ sum(count), 3)) %>%
@@ -198,7 +198,7 @@ kable(
 - Variety: Within the Arabica species, there are several varieties of coffee beans. The data set includes 28 total varieties; however, we decided to select the top 5 categories (which account for 74% of the data) and assign each other variety to the “Other” category. The top 5 varieties are Caturra, Typica, Bourbon, Catuai, and Yellow Bourbon. Table 3 shows the distribution of bean varieties:
 
 ```{r}
-summary_table <- df %>%
+summary_table <- eda_df %>%
   group_by(variety_adj) %>%
   summarize(count = n()) %>%
   mutate(prop = round(count/ sum(count), 3)) %>%
