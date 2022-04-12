@@ -1,0 +1,194 @@
+---
+title: "EDA.Rmd"
+output: html_document
+---
+
+
+# Notes:
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r libraries}
+library(tidyverse)
+library(magrittr)
+library(ggplot2)
+library(patchwork)
+library(forcats)
+
+eda_df <- read.csv("eda_df_v3.csv")
+```
+
+# Introduction
+
+# Description of Data & Research Design
+
+```{r cup score pdf}
+## Numerical: Histogram
+cup_hist <- eda_df %>% 
+  ggplot(aes(x=Total.Cup.Points)) + geom_density() +
+  labs(title="Figure 1: Distribution of Total Cup Points",
+       x="Total Cup Score", y="Density") + 
+  theme(
+    plot.title = element_text(size=10, face="bold.italic", hjust=0.5),
+    axis.title.x = element_text(size=10, face="bold"),
+    axis.title.y = element_text(size=10, face="bold")
+    )
+#ggsave("plots/cup_dist.png", width = 6, height = 4)
+
+alt_hist <- eda_df %>% 
+  ggplot(aes(x=altitude_mean_meters_adj)) + geom_density() +
+    labs(title="Figure 2: Distribution of Altitude",
+       x="Altitude (meters)", y="Density") + 
+  theme(
+    plot.title = element_text(size=10, face="bold.italic", hjust=0.5),
+    axis.title.x = element_text(size=10, face="bold"),
+    axis.title.y = element_text(size=10, face="bold")
+    )
+#ggsave("plots/altitude_dist.png", width = 6, height = 4)
+
+cup_hist | alt_hist
+```
+
+```{r altitude v cup score}
+alt_points <- eda_df %>%
+  ggplot(aes(x=altitude_mean_meters_adj, y=Total.Cup.Points)) + 
+  geom_point() + geom_smooth(method = "lm") +
+    labs(title="Figure 3: Relationship Between Altitude and Total Cup Points",
+       x="Altitude (meters)", y="Total Cup Points") + 
+  theme(
+    plot.title = element_text(size=14, face="bold.italic", hjust=0.5),
+    axis.title.x = element_text(size=10, face="bold"),
+    axis.title.y = element_text(size=10, face="bold")
+    )
+ggsave("plots/altitude_cupscore_scatter.png", width = 8, height = 4)
+
+alt_points
+```
+
+```{r defect and TCS}
+defect_tcs <- eda_df %>% 
+  ggplot(aes(x=total_defects, y=Total.Cup.Points)) + 
+  geom_point() + geom_smooth(method='lm') + 
+    labs(title="Figure 4: Relationship between Total Defects & Total Cup Points",
+       x="Total Defects", y="Total Cup Points") + 
+  theme(
+    plot.title = element_text(size=12, face="bold.italic", hjust=0.5),
+    axis.title.x = element_text(size=10, face="bold"),
+    axis.title.y = element_text(size=10, face="bold")
+    )
+
+defect_tcs
+```
+
+```{r variety scatter}
+variety_tcs <- eda_df %>% 
+  ggplot(aes(x=variety_adj, y=Total.Cup.Points)) + geom_bar(stat='summary', fun='mean') +
+    labs(title="Figure 5: Relationship of Bean Variety and Total Cup Points",
+       x="Variety", y="Mean Total Cup Points") + 
+  theme(
+    plot.title = element_text(size=12, face="bold.italic", hjust=0.5),
+    axis.title.x = element_text(size=10, face="bold"),
+    axis.title.y = element_text(size=10, face="bold")
+    )
+variety_tcs
+```
+
+```{r proc method scatter}
+proc_tcs <- eda_df %>% 
+  ggplot(aes(x=Processing.Method, y=Total.Cup.Points)) + geom_bar(stat='summary', fun='mean') +
+    labs(title="Figure 6: Relationship of Processing Method and Total Cup Points",
+       x="Processing Method", y="Mean Total Cup Points") + 
+  theme(
+    plot.title = element_text(size=12, face="bold.italic", hjust=0.5),
+    axis.title.x = element_text(size=10, face="bold"),
+    axis.title.y = element_text(size=10, face="bold"),
+    axis.text.x = element_text(angle=90)
+    )
+proc_tcs
+```
+
+```{r climate scatter}
+trop_tcs <- eda_df %>% 
+  mutate(Trop_Ind = ifelse(eda_df$Non_Tropical==0, 'Tropical', 'Non-Tropical')) %>%
+  ggplot(aes(x=Trop_Ind, y=Total.Cup.Points)) + geom_bar(stat='summary', fun='mean') +
+    labs(title="Figure 4: Relationship of Climate Region and Total Cup Points",
+       x="Climate", y="Mean Total Cup Points") + 
+  theme(
+    plot.title = element_text(size=12, face="bold.italic", hjust=0.5),
+    axis.title.x = element_text(size=10, face="bold"),
+    axis.title.y = element_text(size=10, face="bold")
+    )
+trop_tcs
+```
+
+
+
+# Appendix
+```{r defect histogram}
+# Show distributions of: variety, processing methods, tropical, total defects
+defect_hist <- eda_df %>% 
+  ggplot(aes(x=total_defects)) + geom_histogram() +
+    labs(title="Figure 4: Distribution of Total Defects",
+       x="Total Defects", y="Count") + 
+  theme(
+    plot.title = element_text(size=12, face="bold.italic", hjust=0.5),
+    axis.title.x = element_text(size=10, face="bold"),
+    axis.title.y = element_text(size=10, face="bold")
+    )
+
+variety_hist <- eda_df %>% 
+  ggplot(aes(x=fct_infreq(variety_adj))) + geom_bar() +
+    labs(title="Figure 5: Distribution of Bean Variety",
+       x="Variety", y="Count") + 
+  theme(
+    plot.title = element_text(size=12, face="bold.italic", hjust=0.5),
+    axis.title.x = element_text(size=10, face="bold"),
+    axis.title.y = element_text(size=10, face="bold")
+    )
+
+proc_hist <- eda_df %>% 
+  ggplot(aes(x=fct_infreq(Processing.Method))) + geom_bar() +
+    labs(title="Figure 6: Distribution of Processing Method",
+       x="Processing Method", y="Count") + 
+  theme(
+    plot.title = element_text(size=12, face="bold.italic", hjust=0.5),
+    axis.title.x = element_text(size=10, face="bold"),
+    axis.title.y = element_text(size=10, face="bold")
+    )
+
+climate_hist <- eda_df %>%
+  mutate(Trop_Ind = ifelse(eda_df$Non_Tropical==0, 'Tropical', 'Non-Tropical')) %>%
+  ggplot(aes(x=fct_infreq(Trop_Ind))) + geom_bar() +
+    labs(title="Figure 7: Distribution of Climate Type",
+       x="Climate Type", y="Count") + 
+  theme(
+    plot.title = element_text(size=12, face="bold.italic", hjust=0.5),
+    axis.title.x = element_text(size=10, face="bold"),
+    axis.title.y = element_text(size=10, face="bold")
+    )
+
+defect_hist | variety_hist | proc_hist | climate_hist
+```
+
+```{r defect histogram}
+eda_df %>% 
+  count(variety_adj) %>%
+  arrange(desc(n))
+
+eda_df %>% 
+  count(Processing.Method) %>%
+  arrange(desc(n))
+
+
+```
+
+
+
+
+
+
+
+
+

@@ -1,13 +1,17 @@
 ---
-title: "EDA.Rmd"
-output: html_document
+title: "Proposal"
+author: "John-Tianyu-Fabian"
+date: '2022-04-11'
+header-includes:
+   - \usepackage{amsmath}
+output: pdf_document
 ---
 
 
 # Notes:
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```
 
 ```{r libraries}
@@ -15,14 +19,55 @@ library(tidyverse)
 library(magrittr)
 library(ggplot2)
 library(patchwork)
-library(forcats)
+library(sandwich)
+library(lmtest)
+library(stargazer)
+```
 
+```{r data loading}
 eda_df <- read.csv("eda_df_v3.csv")
+model_df <- read.csv("model_df_v4.csv") %>% mutate(altitude_e100 = altitude_mean_meters_adj / 100) %>% drop_na(dist_equator)
 ```
 
 # Introduction
 
-# Description of Data & Research Design
+## Movtivation
+
+The average American consumes ~2 cups of coffee per day, making coffee the preferred American drink (Holcomb, 2021). The coffee market is expected to grow 13.2% yearly over the next 4 years (Maida, 2022). Though some brew coffee at home to save money, it is generally known that the best coffee comes from a true coffee shop, where trained baristas used complex machinery to delicately convert specialty coffee beans into a delicious drink. There are many different ways to brew and consume coffee; some prefer espresso, some prefer pour-over, others prefer drip coffee. However, the brewing process only has a minor effect on the quality of the end product; instead, the quality of coffee is primarily determined by the quality of the bean sourced.  
+
+Before making it to the local coffee shop, the coffee bean goes through a lengthy cultivation, harvesting, and treatment process. The coffee bean is actually a seed extracted from a coffee cherry, the fruit of a coffee tree. Coffee trees are farmed under very specific conditions, primarily in warm climates around the world. Once a coffee tree is ready for harvest, the bean is extracted from the coffee cherry before being processed or washed and then shipped to different buyers around the world. Existing literature shows that the location of the farm is critical for the bean quality. Primarily, higher altitude has been shown to result in higher quality beans (Fleisher, 2017). This is largely because higher altitudes cause slower photosynthesis, which allows plants to metabolize nutrients more gradually and produce bigger and higher quality beans (Aprile 2017). Additionally, the distance from the equator has a significant impact; the coffee belt refers to the many farms within 30 miles from the equator (Clayton, 2021). Each step of the cultivation, harvesting, and washing process has a tremendous impact on the quality of the final product. Given this, coffee shops and distributors place great attention and emphasis on sourcing quality beans in order to improve their product.  
+
+To provide transparency to the coffee market, each bean is assessed by a set of trained judges every year. The Coffee Quality Institute (CQI) determines the “total cup score” of each bean through a rigorous, and consistent process to prevent bias from affecting the total cup scores. Total cup score is a metric first defined by the Specialty Coffee Association, and it is the result of rating 10 different attributes of the coffee on a scale 6-10  (such as aroma, acidity, flavor, balance, etc.) and then summing across dimensions for the total score. For each bean, the total cup score is determined by a “Q Grader”, who first has to pass a series of certification tests by the CQI to qualify. The CQI also imposes rules on the Q Graders to ensure the integrity of bean ratings and avoid bias on database:  
+
+1.Q Graders must have no known ownership or interest in the coffees to be graded and will evaluate the coffee sample objectively
+2.Q Graders must have the bean sample assigned to them on the CQI Database prior to grading the sample
+3.Q Graders must be regularly rotated to provide equal opportunities and to ensure the transparency of the Q Coffee System
+This total cup score is commonly used to evaluate different coffees for importation and selections for specialty coffee shops.  
+
+This total cup score is commonly used to evaluate different coffees for importation and selections for specialty coffee shops.
+
+## Research Question
+
+The goal of this analysis is to understand the key determinants of coffee bean quality (total cup score), to enable farmers to grow better beans and coffee shop owners to source better beans. In particular, this analysis will seek to understand the causal impact of altitude on bean quality through the use of linear models. The main research question is:   
+
+
+> How does the altitude of the bean cultivation affect the bean’s total cup score?  
+
+
+Given the importance of sourcing quality beans and the expected growth of the coffee market, it is important for coffee shops to be diligent in the sourcing of their beans to provide a quality product that will retain existing and win new clientele. Additionally, coffee farmers must make better decisions throughout the cultivation process to improve the quality of their beans and compete in the growing market.  
+
+
+# Data and Methodology
+
+## About the Data
+
+Our analysis leverages a dataset produced by the Coffee Quality Institute (CQI) and hosted on Kaggle. After cleaning, the dataset has about 1,000 total records of Arabica coffee beans produced by different suppliers in a range of countries, spanning from 2009 through 2018. Each record includes the total cup score of the bean, as well as descriptive data points on the type of bean, the cultivation process, and the location of cultivation. 
+
+A second dataset, sourced from Kaggle was used to map the latitude of each country into the data. 
+
+## Total Cup Score Characteristics
+The total cup score variable is the outcome variable of interest. Each coffee bean in our dataset has a score between 60-100 since it is the sum of 10 coffee attributes, each rated on a scale of 6-10. According to the Specialty Coffee Association of America, the component attributes are:
+
 
 ```{r cup score pdf}
 ## Numerical: Histogram
@@ -172,7 +217,7 @@ climate_hist <- eda_df %>%
 defect_hist | variety_hist | proc_hist | climate_hist
 ```
 
-```{r defect histogram}
+```{r defect histogram2}
 eda_df %>% 
   count(variety_adj) %>%
   arrange(desc(n))
