@@ -31,20 +31,6 @@ model_df <- read.csv("model_df_v4.csv") %>%
   drop_na(dist_equator)
 ```
 
-```{r data cleaning}
-data_set <- read.csv("merged_data_cleaned.csv")
-df <- data_set %>%
-  # Get rid of NAs
-  drop_na(altitude_mean_meters, Quakers) %>%
-  filter(Processing.Method != '', Harvest.Year != '', Species == 'Arabica')
-df$altitude_mean_meters_adj <- ifelse(df$unit_of_measurement=='ft', 
-                                      df$altitude_mean_meters * 0.3048,
-                                      df$altitude_mean_meters)
-df <- df %>%
-  filter(altitude_mean_meters_adj < 3000)
-top_5_variety <- c("Caturra", "Typica", "Bourbon", "Catuai", "Yellow Bourbon")
-df$variety_adj = ifelse(df$Variety %in% top_5_variety, df$Variety, "Other")
-```
 # Introduction
 
 ## Motivation
