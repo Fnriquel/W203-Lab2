@@ -14,7 +14,8 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 
 
 ```{r}
-# install.packages('fastDummies')
+install.packages('fastDummies')
+install.packages('stargazer')
 library('fastDummies')
 library(tidyverse)
 library(magrittr)
@@ -29,7 +30,19 @@ library(stargazer)
 model_df <- read.csv("model_df_v4.csv") %>% mutate(altitude_e100 = altitude_mean_meters_adj / 100) %>% drop_na(dist_equator)
 
 ```
+# Correlation MAtrix
+```{r}
+#cov(model_df)
+install.packages("corrplot")
+library(corrplot)
+model_cor_1 <- model_df[ -c(2, 13) ]
+model_cor=model_df[1:13]
+correlation_df<-cor(model_cor_1,model_cor_1, method="pearson", use="all.obs")
+colnames(correlation_df) <- c("Total_Cup",  "Total_defects", "Processing_Other", "Processing_Pulped", "Processing_Semi_Washed", "Processing_Washed", "Variety_Bourbon", "Variety_Catuai", "Variety_Caturra", "Variety_Typica", "Variety_Yellow", "Distance_Equator", "Altitude")
+rownames(correlation_df) <- c("Total_Cup",  "Total_defects", "Processing_Other", "Processing_Pulped", "Processing_Semi_Washed", "Processing_Washed", "Variety_Bourbon", "Variety_Catuai", "Variety_Caturra", "Variety_Typica", "Variety_Yellow", "Distance_Equator", "Altitude")
+corrplot(correlation_df, method = 'number', number.cex = 0.5, col="black",tl.cex = 0.5, tl.offset = 1)
 
+```
 
 
 # Modeling
@@ -143,18 +156,6 @@ The second model includes additional explanatory variables `Non_tropical`, which
 <<<<<<< HEAD
 The third model, which includes the explanatory variables from the second model while also adding in control variables, shows an increase in explanatory power (0.236 vs. 0.152). The addition of these control variables results in a reduction of effect size on an absolute value basis across all of the explanatory variables; however, the altitude variable effect size remains relatively stable from a practical perspective (-0.281 vs. 0.325).
 =======
-```{r}
-#cov(model_df)
-install.packages("corrplot")
-library(corrplot)
-model_cor=model_df[1:13]
-correlation_df<-cor(model_cor,model_cor, method="pearson", use="all.obs")
-colnames(correlation_df) <- c("Total_Cup", "Altitude", "Total_defects", "Processing_Other", "Processing_Pulped", "Processing_Semi_Washed", "Processing_Washed", "Variety_Bourbon", "Variety_Catuai", "Variety_Caturra", "Variety_Typica", "Variety_Yellow", "Non_Tropical")
-rownames(correlation_df) <- c("Total_Cup", "Altitude", "Total_defects", "Processing_Other", "Processing_Pulped", "Processing_Semi_Washed", "Processing_Washed", "Variety_Bourbon", "Variety_Catuai", "Variety_Caturra", "Variety_Typica", "Variety_Yellow", "Non_Tropical")
-corrplot(correlation_df, method = 'number', number.cex = 0.5, col="black",tl.cex = 0.5, tl.offset = 1)
-
-
-```
 >>>>>>> 53a4c4aa6282e2ea4f06bb7dc66c7f8344dc1e91
 
 The final model selected is thus as follows:
