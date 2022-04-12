@@ -1,0 +1,297 @@
+"Total.Cup.Points","altitude_mean_meters_adj","Country.of.Origin","Harvest.Year","Variety","Processing.Method","total_defects","Quakers","Processing.Method_Other","Processing.Method_Pulped natural / honey","Processing.Method_Semi-washed / Semi-pulped","Processing.Method_Washed / Wet","variety_adj","variety_adj_Bourbon","variety_adj_Catuai","variety_adj_Caturra","variety_adj_Typica","variety_adj_Yellow Bourbon","Non_Tropical","dist_equator"
+90.58,2075,"Ethiopia","2014","","Washed / Wet",0,0,0,0,0,1,"Other",0,0,0,0,0,0,9.145
+87.92,1872,"United States","2014","Other","Washed / Wet",0,0,0,0,0,1,"Other",0,0,0,0,0,1,37.09024
+87.25,1450,"China","2015","Catimor","Washed / Wet",0,0,0,0,0,1,"Other",0,0,0,0,0,1,35.86166
+87.17,1300,"Costa Rica","2014","Caturra","Washed / Wet",2,0,0,0,0,1,"Caturra",0,0,1,0,0,0,9.748917
+87.08,2112,"United States","2014","Other","Washed / Wet",0,0,0,0,0,1,"Other",0,0,0,0,0,1,37.09024
+86.92,1250,"Brazil","2011","Bourbon","Natural / Dry",2,0,0,0,0,0,"Bourbon",1,0,0,0,0,0,14.235004
+86.83,1950,"Uganda","2013","SL14","Washed / Wet",1,0,0,0,0,1,"Other",0,0,0,0,0,0,1.373333
+86.58,1200,"Taiwan","2015","Sumatra","Pulped natural / honey",0,0,0,1,0,0,"Other",0,0,0,0,0,1,23.69781
+86.33,1300,"Costa Rica","2015/2016","Caturra","Washed / Wet",0,0,0,0,0,1,"Caturra",0,0,1,0,0,0,9.748917
+86.25,1775,"Ethiopia","2014","","Natural / Dry",3,0,0,0,0,0,"Other",0,0,0,0,0,0,9.145
+85.83,431.999136,"Guatemala","2012","Catuai","Washed / Wet",1,0,0,0,0,1,"Catuai",0,1,0,0,0,0,15.783471
+85.75,1700,"Papua New Guinea","2012","","Washed / Wet",1,0,0,0,0,1,"Other",0,0,0,0,0,0,6.314993
+85.58,1500,"El Salvador","2013","Bourbon","Washed / Wet",3,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,13.794185
+85.58,1350,"El Salvador","2012","Bourbon","Semi-washed / Semi-pulped",0,0,0,0,1,0,"Bourbon",1,0,0,0,0,0,13.794185
+85.5,527.6892672,"Guatemala","2013","Bourbon","Washed / Wet",1,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+85.33,1300,"Costa Rica","2014","Caturra","Washed / Wet",2,0,0,0,0,1,"Caturra",0,0,1,0,0,0,9.748917
+85.25,1550,"Colombia","2015","Caturra","Washed / Wet",0,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+85,1900,"Costa Rica","2016","Catuai","Washed / Wet",2,1,0,0,0,1,"Catuai",0,1,0,0,0,0,9.748917
+85,1,"Kenya","2015","","Washed / Wet",7,5,0,0,0,1,"Other",0,0,0,0,0,0,0.023559
+84.92,1775,"Colombia","2015","Caturra","Washed / Wet",1,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+84.92,1620,"Tanzania, United Republic Of","2014","Other","Washed / Wet",2,0,0,0,0,1,"Other",0,0,0,0,0,0,NA
+84.92,1200,"Mexico","2012","Typica","Semi-washed / Semi-pulped",0,0,0,0,1,0,"Typica",0,0,0,1,0,1,23.634501
+84.92,1200,"Brazil","2011","Bourbon","Natural / Dry",2,0,0,0,0,0,"Bourbon",1,0,0,0,0,0,14.235004
+84.67,1750,"Costa Rica","2014","Other","Other",1,0,1,0,0,0,"Other",0,0,0,0,0,0,9.748917
+84.58,1800,"Kenya","2013","Peaberry","Washed / Wet",2,0,0,0,0,1,"Other",0,0,0,0,0,0,0.023559
+84.58,371.61216,"Guatemala","2014","Bourbon","Washed / Wet",0,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+84.58,1550,"Colombia","2013","Caturra","Washed / Wet",0,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+84.5,1200,"Costa Rica","2017 / 2018","Caturra","Washed / Wet",2,0,0,0,0,1,"Caturra",0,0,1,0,0,0,9.748917
+84.5,1100,"China","2013","Other","Washed / Wet",2,0,0,0,0,1,"Other",0,0,0,0,0,1,35.86166
+84.5,2000,"Kenya","2012","SL28","Washed / Wet",0,0,0,0,0,1,"Other",0,0,0,0,0,0,0.023559
+84.42,1775,"Colombia","2014","Caturra","Washed / Wet",3,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+84.42,900,"Mexico","2012","Pacamara","Washed / Wet",6,0,0,0,0,1,"Other",0,0,0,0,0,1,23.634501
+84.33,1800,"Kenya","2017 / 2018","SL28","Washed / Wet",4,0,0,0,0,1,"Other",0,0,0,0,0,0,0.023559
+84.25,1000,"Taiwan","2016","Typica","Washed / Wet",0,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.69781
+84.25,1200,"Thailand","2015","Catimor","Natural / Dry",0,0,0,0,0,0,"Other",0,0,0,0,0,0,15.870032
+84.25,2560,"Colombia","2016","Caturra","Natural / Dry",2,0,0,0,0,0,"Caturra",0,0,1,0,0,0,4.570868
+84.25,1400,"China","2015","Catimor","Natural / Dry",1,0,0,0,0,0,"Other",0,0,0,0,0,1,35.86166
+84.25,1775,"Colombia","2015","Caturra","Washed / Wet",3,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+84.25,442,"Colombia","2015","Caturra","Natural / Dry",3,0,0,0,0,0,"Caturra",0,0,1,0,0,0,4.570868
+84.25,1620,"Tanzania, United Republic Of","2014","Other","Washed / Wet",7,0,0,0,0,1,"Other",0,0,0,0,0,0,NA
+84.25,1700,"Colombia","2013","Caturra","Washed / Wet",2,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+84.17,1700,"Guatemala","2017","Bourbon","Washed / Wet",1,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+84.17,1565,"Guatemala","2016","Caturra","Washed / Wet",10,1,0,0,0,1,"Caturra",0,0,1,0,0,0,15.783471
+84.17,1850,"Costa Rica","2014","Caturra","Washed / Wet",0,0,0,0,0,1,"Caturra",0,0,1,0,0,0,9.748917
+84.17,1606.5,"Ethiopia","2014","Gesha","Natural / Dry",5,0,0,0,0,0,"Other",0,0,0,0,0,0,9.145
+84.17,1530,"Colombia","2014/2015","Other","Washed / Wet",4,0,0,0,0,1,"Other",0,0,0,0,0,0,4.570868
+84.17,250.5,"Kenya","2013","SL28","Washed / Wet",0,0,0,0,0,1,"Other",0,0,0,0,0,0,0.023559
+84.17,1750,"Colombia","2012","Caturra","Washed / Wet",2,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+84.08,1775,"Colombia","2014","Caturra","Washed / Wet",2,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+84.08,1550,"Guatemala","2014","Bourbon","Washed / Wet",10,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+84,1800,"Ethiopia","2017","Gesha","Natural / Dry",4,11,0,0,0,0,"Other",0,0,0,0,0,0,9.145
+84,1500,"Honduras","2017","Caturra","Washed / Wet",5,0,0,0,0,1,"Caturra",0,0,1,0,0,0,15.199999
+84,371.61216,"Guatemala","2014","Bourbon","Natural / Dry",1,0,0,0,0,0,"Bourbon",1,0,0,0,0,0,15.783471
+84,371.61216,"Guatemala","2014","Bourbon","Other",0,0,1,0,0,0,"Bourbon",1,0,0,0,0,0,15.783471
+84,1775,"Colombia","2014","Caturra","Washed / Wet",3,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+84,1550,"Ethiopia","2013","Other","Natural / Dry",44,0,0,0,0,0,"Other",0,0,0,0,0,0,9.145
+84,1260,"Brazil","2013/2014","Yellow Bourbon","Natural / Dry",0,0,0,0,0,0,"Yellow Bourbon",0,0,0,0,1,0,14.235004
+84,1700,"Colombia","2013","Caturra","Washed / Wet",1,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+84,1200,"Kenya","2012","SL34","Washed / Wet",2,0,0,0,0,1,"Other",0,0,0,0,0,0,0.023559
+83.92,934,"Brazil","2016","Bourbon","Natural / Dry",7,2,0,0,0,0,"Bourbon",1,0,0,0,0,0,14.235004
+83.92,900,"Mexico","2012","Typica","Washed / Wet",42,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+83.83,2527,"Colombia","2017","Caturra","Washed / Wet",7,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+83.83,1676.5,"Ethiopia","2014","","Natural / Dry",4,0,0,0,0,0,"Other",0,0,0,0,0,0,9.145
+83.83,1300,"Costa Rica","2013","Catuai","Washed / Wet",3,0,0,0,0,1,"Catuai",0,1,0,0,0,0,9.748917
+83.83,800,"Ecuador","2013","","Natural / Dry",0,0,0,0,0,0,"Other",0,0,0,0,0,0,1.831239
+83.83,1218,"Mexico","2012","Bourbon","Natural / Dry",2,0,0,0,0,0,"Bourbon",1,0,0,0,0,1,23.634501
+83.75,890,"Brazil","2017 / 2018","Bourbon","Natural / Dry",5,0,0,0,0,0,"Bourbon",1,0,0,0,0,0,14.235004
+83.75,750,"Taiwan","2016","Typica","Natural / Dry",0,0,0,0,0,0,"Typica",0,0,0,1,0,1,23.69781
+83.75,1650,"China","2015","Catimor","Washed / Wet",2,1,0,0,0,1,"Other",0,0,0,0,0,1,35.86166
+83.75,1775,"Colombia","2014","Caturra","Washed / Wet",5,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+83.75,1550,"Colombia","2014","Other","Washed / Wet",3,0,0,0,0,1,"Other",0,0,0,0,0,0,4.570868
+83.75,700,"Mexico","2012","Caturra","Natural / Dry",10,0,0,0,0,0,"Caturra",0,0,1,0,0,1,23.634501
+83.75,1300,"Guatemala","2012","Caturra","Washed / Wet",1,0,0,0,0,1,"Caturra",0,0,1,0,0,0,15.783471
+83.67,934,"Brazil","2016","Bourbon","Natural / Dry",3,2,0,0,0,0,"Bourbon",1,0,0,0,0,0,14.235004
+83.67,1200,"Taiwan","2015","Caturra","Natural / Dry",0,0,0,0,0,0,"Caturra",0,0,1,0,0,1,23.69781
+83.67,413.51143104,"Guatemala","2014","Bourbon","Washed / Wet",0,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+83.67,1750,"Colombia","2013","Caturra","Washed / Wet",3,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+83.67,1900,"Colombia","2013","Caturra","Washed / Wet",1,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+83.67,399.483072,"Guatemala","2012","Bourbon","Washed / Wet",13,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+83.67,464.5152,"Guatemala","2012","Caturra","Washed / Wet",0,0,0,0,0,1,"Caturra",0,0,1,0,0,0,15.783471
+83.58,890,"Brazil","2017 / 2018","Bourbon","Natural / Dry",5,0,0,0,0,0,"Bourbon",1,0,0,0,0,0,14.235004
+83.58,1200,"Mexico","2014","Caturra","Washed / Wet",14,0,0,0,0,1,"Caturra",0,0,1,0,0,1,23.634501
+83.58,1800,"Uganda","2013","SL14","Washed / Wet",5,0,0,0,0,1,"Other",0,0,0,0,0,0,1.373333
+83.58,1550,"Colombia","2014","Caturra","Washed / Wet",1,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+83.5,1799,"Colombia","2016","Caturra","Washed / Wet",5,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+83.5,1400,"Tanzania, United Republic Of","2015","Ruiru 11","Washed / Wet",21,0,0,0,0,1,"Other",0,0,0,0,0,0,NA
+83.5,1850,"Colombia","2014","Caturra","Washed / Wet",0,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+83.5,1650,"Colombia","2014","Caturra","Washed / Wet",2,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+83.5,1750,"Colombia","2013","Caturra","Washed / Wet",2,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+83.5,1775,"Colombia","2012","Caturra","Washed / Wet",0,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+83.42,439,"Colombia","2017 / 2018","Caturra","Washed / Wet",1,2,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+83.42,1850,"Costa Rica","2016","Caturra","Washed / Wet",4,0,0,0,0,1,"Caturra",0,0,1,0,0,0,9.748917
+83.42,1800,"Uganda","2015","SL14","Washed / Wet",1,0,0,0,0,1,"Other",0,0,0,0,0,0,1.373333
+83.42,1200,"Thailand","2015","Catimor","Washed / Wet",0,0,0,0,0,1,"Other",0,0,0,0,0,0,15.870032
+83.42,442,"Colombia","2015","Caturra","Natural / Dry",4,0,0,0,0,0,"Caturra",0,0,1,0,0,0,4.570868
+83.42,371.61216,"Guatemala","2013","Bourbon","Natural / Dry",1,0,0,0,0,0,"Bourbon",1,0,0,0,0,0,15.783471
+83.42,1500,"Guatemala","2014","Caturra","Washed / Wet",2,0,0,0,0,1,"Caturra",0,0,1,0,0,0,15.783471
+83.33,1227,"Brazil","2015/2016","Catuai","Semi-washed / Semi-pulped",6,0,0,0,1,0,"Catuai",0,1,0,0,0,0,14.235004
+83.33,1100,"Mexico","2013","Other","Washed / Wet",0,0,0,0,0,1,"Other",0,0,0,0,0,1,23.634501
+83.33,1300,"Costa Rica","2014","Caturra","Washed / Wet",3,0,0,0,0,1,"Caturra",0,0,1,0,0,0,9.748917
+83.33,390.192768,"Haiti","2012","Typica","Washed / Wet",4,0,0,0,0,1,"Typica",0,0,0,1,0,0,18.971187
+83.33,1000,"Colombia","2013","Caturra","Natural / Dry",1,0,0,0,0,0,"Caturra",0,0,1,0,0,0,4.570868
+83.25,1261,"Mexico","2015","Typica","Natural / Dry",2,0,0,0,0,0,"Typica",0,0,0,1,0,1,23.634501
+83.25,1000,"Taiwan","2015","Bourbon","Washed / Wet",0,0,0,0,0,1,"Bourbon",1,0,0,0,0,1,23.69781
+83.25,800,"Taiwan","2014","Typica","Washed / Wet",0,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.69781
+83.25,1200,"Brazil","2012","Yellow Bourbon","Semi-washed / Semi-pulped",1,0,0,0,1,0,"Yellow Bourbon",0,0,0,0,1,0,14.235004
+83.25,175,"Colombia","2012","Caturra","Washed / Wet",1,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+83.17,168,"Tanzania, United Republic Of","2016","Bourbon","Washed / Wet",3,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,NA
+83.17,1500,"Guatemala","2016","Caturra","Washed / Wet",5,2,0,0,0,1,"Caturra",0,0,1,0,0,0,15.783471
+83.17,1500,"Guatemala","2015","Bourbon","Washed / Wet",1,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+83.17,1089,"Mexico","2012","Pacamara","Washed / Wet",10,0,0,0,0,1,"Other",0,0,0,0,0,1,23.634501
+83.17,427.353984,"Guatemala","2012","Bourbon","Washed / Wet",10,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+83.17,1000,"Brazil","2011","Mundo Novo","Semi-washed / Semi-pulped",3,0,0,0,1,0,"Other",0,0,0,0,0,0,14.235004
+83.08,1300,"Taiwan","2013/2014","Typica","Other",0,0,1,0,0,0,"Typica",0,0,0,1,0,1,23.69781
+83,1550,"Vietnam","2014","Caturra","Other",0,0,1,0,0,0,"Caturra",0,0,1,0,0,0,14.058324
+83,260.128512,"United States (Puerto Rico)","2013","Other","Washed / Wet",0,0,0,0,0,1,"Other",0,0,0,0,0,0,NA
+83,1000,"Colombia","2013","Caturra","Natural / Dry",1,0,0,0,0,0,"Caturra",0,0,1,0,0,0,4.570868
+83,1000,"Colombia","2013","Caturra","Natural / Dry",2,0,0,0,0,0,"Caturra",0,0,1,0,0,0,4.570868
+83,1775,"Colombia","2012","Caturra","Washed / Wet",3,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+83,1200,"Mexico","2012","Bourbon","Washed / Wet",13,0,0,0,0,1,"Bourbon",1,0,0,0,0,1,23.634501
+83,1775,"Colombia","2011","Caturra","Washed / Wet",0,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+82.92,890,"Brazil","2017 / 2018","Bourbon","Natural / Dry",0,0,0,0,0,0,"Bourbon",1,0,0,0,0,0,14.235004
+82.92,350,"Taiwan","2016","Caturra","Natural / Dry",31,0,0,0,0,0,"Caturra",0,0,1,0,0,1,23.69781
+82.92,1500,"Guatemala","2014","Caturra","Natural / Dry",2,0,0,0,0,0,"Caturra",0,0,1,0,0,0,15.783471
+82.92,1750,"Colombia","2013","Caturra","Natural / Dry",0,0,0,0,0,0,"Caturra",0,0,1,0,0,0,4.570868
+82.92,520.257024,"Guatemala","2013","Bourbon","Washed / Wet",2,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+82.92,1450,"Colombia","2013","Other","Washed / Wet",8,0,0,0,0,1,"Other",0,0,0,0,0,0,4.570868
+82.92,1248,"Mexico","2012","Typica","Natural / Dry",4,0,0,0,0,0,"Typica",0,0,0,1,0,1,23.634501
+82.92,1400,"Mexico","2012","Typica","Washed / Wet",5,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+82.83,905,"Brazil","2015","Yellow Bourbon","Pulped natural / honey",2,2,0,1,0,0,"Yellow Bourbon",0,0,0,0,1,0,14.235004
+82.83,1200,"United States","2014","Other","Other",9,0,1,0,0,0,"Other",0,0,0,0,0,1,37.09024
+82.83,1775,"Colombia","2013","Caturra","Washed / Wet",3,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+82.83,1250,"Mexico","2012","Bourbon","Washed / Wet",7,0,0,0,0,1,"Bourbon",1,0,0,0,0,1,23.634501
+82.83,1380,"Mexico","2012","Typica","Washed / Wet",2,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+82.75,371.61216,"Guatemala","2017","Bourbon","Washed / Wet",1,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+82.75,371.61216,"Guatemala","2017","Bourbon","Washed / Wet",1,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+82.75,1500,"Indonesia","2017","Sulawesi","Other",15,0,1,0,0,0,"Other",0,0,0,0,0,0,0.789275
+82.75,1850,"Costa Rica","2016","Caturra","Washed / Wet",1,0,0,0,0,1,"Caturra",0,0,1,0,0,0,9.748917
+82.75,1100,"China","2015","Catimor","Natural / Dry",0,0,0,0,0,0,"Other",0,0,0,0,0,1,35.86166
+82.75,1775,"Colombia","2014","Caturra","Washed / Wet",2,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+82.75,1200,"Mexico","2012","Typica","Natural / Dry",5,0,0,0,0,0,"Typica",0,0,0,1,0,1,23.634501
+82.75,1100,"Panama","2012","Catuai","Washed / Wet",4,0,0,0,0,1,"Catuai",0,1,0,0,0,0,8.537981
+82.67,890,"Brazil","2017 / 2018","Bourbon","Natural / Dry",4,0,0,0,0,0,"Bourbon",1,0,0,0,0,0,14.235004
+82.67,1,"Brazil","2015/2016","Yellow Bourbon","Natural / Dry",0,0,0,0,0,0,"Yellow Bourbon",0,0,0,0,1,0,14.235004
+82.67,1200,"Taiwan","2014","Typica","Washed / Wet",0,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.69781
+82.67,1240,"Taiwan","2013/2014","Typica","Washed / Wet",0,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.69781
+82.67,1500,"Guatemala","2012","Caturra","Washed / Wet",0,0,0,0,0,1,"Caturra",0,0,1,0,0,0,15.783471
+82.67,950,"Mexico","2012","Typica","Washed / Wet",0,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+82.58,1650,"Uganda","2013","SL14","Natural / Dry",0,0,0,0,0,0,"Other",0,0,0,0,0,0,1.373333
+82.58,1750,"Colombia","2012","Caturra","Washed / Wet",3,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+82.5,1650,"Mexico","2012","Typica","Semi-washed / Semi-pulped",2,0,0,0,1,0,"Typica",0,0,0,1,0,1,23.634501
+82.5,1250,"Brazil","2012","Bourbon","Semi-washed / Semi-pulped",4,0,0,0,1,0,"Bourbon",1,0,0,0,0,0,14.235004
+82.42,1700,"Guatemala","2017","Bourbon","Washed / Wet",2,1,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+82.42,1600,"China","2015","Catimor","Washed / Wet",0,0,0,0,0,1,"Other",0,0,0,0,0,1,35.86166
+82.42,1170,"Mexico","2013","Bourbon","Washed / Wet",0,0,0,0,0,1,"Bourbon",1,0,0,0,0,1,23.634501
+82.42,1775,"Colombia","2013","Caturra","Washed / Wet",9,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+82.42,1560,"Mexico","2013","Typica","Washed / Wet",5,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+82.42,1400,"Mexico","2012","Typica","Semi-washed / Semi-pulped",2,0,0,0,1,0,"Typica",0,0,0,1,0,1,23.634501
+82.42,1300,"Mexico","2012","Typica","Washed / Wet",0,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+82.42,442,"Colombia","2012","Caturra","Natural / Dry",2,0,0,0,0,0,"Caturra",0,0,1,0,0,0,4.570868
+82.33,982,"Brazil","2016","Catuai","Natural / Dry",11,3,0,0,0,0,"Catuai",0,1,0,0,0,0,14.235004
+82.33,1580,"China","2015","Catimor","Pulped natural / honey",2,6,0,1,0,0,"Other",0,0,0,0,0,1,35.86166
+82.33,1750,"Colombia","2013","Caturra","Washed / Wet",1,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+82.33,399.483072,"Guatemala","2012","Bourbon","Washed / Wet",7,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+82.33,1100,"Brazil","2012","Mundo Novo","Natural / Dry",2,0,0,0,0,0,"Other",0,0,0,0,0,0,14.235004
+82.33,1300,"Mexico","2012","Typica","Washed / Wet",0,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+82.33,950,"Brazil","2012","Mundo Novo","Washed / Wet",2,0,0,0,0,1,"Other",0,0,0,0,0,0,14.235004
+82.25,1500,"El Salvador","2014","Bourbon","Washed / Wet",0,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,13.794185
+82.25,1350,"Honduras","2015","Catuai","Washed / Wet",2,0,0,0,0,1,"Catuai",0,1,0,0,0,0,15.199999
+82.25,1180,"Malawi","2014","Gesha","Washed / Wet",0,0,0,0,0,1,"Other",0,0,0,0,0,0,13.254308
+82.25,1775,"Colombia","2012","Caturra","Washed / Wet",0,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+82.17,934,"Brazil","2016","Bourbon","Natural / Dry",5,1,0,0,0,0,"Bourbon",1,0,0,0,0,0,14.235004
+82.17,1350,"Honduras","2015","Catuai","Washed / Wet",2,0,0,0,0,1,"Catuai",0,1,0,0,0,0,15.199999
+82.17,1200,"Taiwan","2013/2014","Typica","Other",0,0,1,0,0,0,"Typica",0,0,0,1,0,1,23.69781
+82.17,1144,"Mexico","2012","Typica","Washed / Wet",10,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+82.17,1350,"Guatemala","2012","Caturra","Washed / Wet",2,0,0,0,0,1,"Caturra",0,0,1,0,0,0,15.783471
+82.08,894,"Brazil","2016","Bourbon","Natural / Dry",3,1,0,0,0,0,"Bourbon",1,0,0,0,0,0,14.235004
+82.08,1250,"Mexico","2012","Typica","Washed / Wet",1,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+82,1650,"Tanzania, United Republic Of","2015","Other","Washed / Wet",20,0,0,0,0,1,"Other",0,0,0,0,0,0,NA
+82,2500,"Malawi","2014","Gesha","Washed / Wet",1,0,0,0,0,1,"Other",0,0,0,0,0,0,13.254308
+82,600,"Taiwan","2013","Typica","Washed / Wet",0,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.69781
+82,1300,"Costa Rica","2013","Catuai","Washed / Wet",4,0,0,0,0,1,"Catuai",0,1,0,0,0,0,9.748917
+82,1038.5,"Brazil","2012","Mundo Novo","Natural / Dry",0,0,0,0,0,0,"Other",0,0,0,0,0,0,14.235004
+81.92,1901,"Guatemala","2017","Bourbon","Washed / Wet",1,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+81.92,1400,"Honduras","2017","Caturra","Washed / Wet",1,0,0,0,0,1,"Caturra",0,0,1,0,0,0,15.199999
+81.92,1877,"Tanzania, United Republic Of","2014","Other","Washed / Wet",4,0,0,0,0,1,"Other",0,0,0,0,0,0,NA
+81.92,1250,"Zambia","2014","SL28","Washed / Wet",4,0,0,0,0,1,"Other",0,0,0,0,0,0,13.133897
+81.92,1000,"Taiwan","2012","Typica","Other",0,0,1,0,0,0,"Typica",0,0,0,1,0,1,23.69781
+81.92,1300,"Mexico","2013","Bourbon","Washed / Wet",6,0,0,0,0,1,"Bourbon",1,0,0,0,0,1,23.634501
+81.92,981,"Mexico","2012","Typica","Semi-washed / Semi-pulped",9,0,0,0,1,0,"Typica",0,0,0,1,0,1,23.634501
+81.83,973,"Brazil","2016","Mundo Novo","Natural / Dry",3,1,0,0,0,0,"Other",0,0,0,0,0,0,14.235004
+81.83,1425,"Mexico","2015","Catuai","Washed / Wet",7,0,0,0,0,1,"Catuai",0,1,0,0,0,1,23.634501
+81.83,1300,"Costa Rica","2015","Caturra","Washed / Wet",0,0,0,0,0,1,"Caturra",0,0,1,0,0,0,9.748917
+81.83,1550,"Mexico","2014","Typica","Washed / Wet",0,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+81.83,1775,"Colombia","2013","Caturra","Washed / Wet",2,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+81.75,1600,"Tanzania, United Republic Of","2014","Other","Washed / Wet",4,0,0,0,0,1,"Other",0,0,0,0,0,0,NA
+81.75,774,"Mexico","2012","Bourbon","Washed / Wet",11,0,0,0,0,1,"Bourbon",1,0,0,0,0,1,23.634501
+81.75,1250,"Mexico","2012","Mundo Novo","Washed / Wet",23,0,0,0,0,1,"Other",0,0,0,0,0,1,23.634501
+81.67,1450,"Honduras","2016","Catuai","Washed / Wet",2,0,0,0,0,1,"Catuai",0,1,0,0,0,0,15.199999
+81.67,1,"Brazil","2015/2016","Yellow Bourbon","Natural / Dry",0,0,0,0,0,0,"Yellow Bourbon",0,0,0,0,1,0,14.235004
+81.67,1500,"Tanzania, United Republic Of","2014","Other","Washed / Wet",0,0,0,0,0,1,"Other",0,0,0,0,0,0,NA
+81.67,1700,"Tanzania, United Republic Of","2013","Other","Washed / Wet",7,0,0,0,0,1,"Other",0,0,0,0,0,0,NA
+81.67,1850,"Costa Rica","2013","Caturra","Washed / Wet",3,0,0,0,0,1,"Caturra",0,0,1,0,0,0,9.748917
+81.67,750,"Taiwan","2013/2014","Typica","Washed / Wet",0,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.69781
+81.67,534.19248,"Guatemala","2012","Bourbon","Washed / Wet",4,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+81.67,1400,"Mexico","2012","Bourbon","Washed / Wet",2,0,0,0,0,1,"Bourbon",1,0,0,0,0,1,23.634501
+81.58,399.483072,"Guatemala","2013","Bourbon","Washed / Wet",1,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+81.58,1400,"Mexico","2013","Typica","Washed / Wet",9,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+81.58,1650,"Mexico","2012","Typica","Natural / Dry",2,0,0,0,0,0,"Typica",0,0,0,1,0,1,23.634501
+81.5,600,"Taiwan","2013/2014","Typica","Other",0,0,1,0,0,0,"Typica",0,0,0,1,0,1,23.69781
+81.5,1600,"Mexico","2012","Typica","Washed / Wet",5,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+81.5,1400,"Indonesia","2012","Other","Washed / Wet",0,0,0,0,0,1,"Other",0,0,0,0,0,0,0.789275
+81.5,125,"Brazil","2012","Bourbon","Semi-washed / Semi-pulped",2,0,0,0,1,0,"Bourbon",1,0,0,0,0,0,14.235004
+81.42,399.483072,"Guatemala","2013","Bourbon","Washed / Wet",4,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+81.42,763,"Mexico","2012","Caturra","Washed / Wet",9,0,0,0,0,1,"Caturra",0,0,1,0,0,1,23.634501
+81.42,1750,"Colombia","2011","Caturra","Natural / Dry",0,0,0,0,0,0,"Caturra",0,0,1,0,0,0,4.570868
+81.33,1100,"Brazil","2015/2016","Catuai","Natural / Dry",14,0,0,0,0,0,"Catuai",0,1,0,0,0,0,14.235004
+81.33,1200,"Brazil","2014/2015","Yellow Bourbon","Other",6,0,1,0,0,0,"Yellow Bourbon",0,0,0,0,1,0,14.235004
+81.25,1,"Brazil","2015/2016","Yellow Bourbon","Natural / Dry",1,0,0,0,0,0,"Yellow Bourbon",0,0,0,0,1,0,14.235004
+81.25,1700,"Guatemala","2014","Pacamara","Washed / Wet",2,0,0,0,0,1,"Other",0,0,0,0,0,0,15.783471
+81.25,1700,"Tanzania, United Republic Of","2014","Other","Washed / Wet",5,0,0,0,0,1,"Other",0,0,0,0,0,0,NA
+81.25,464.5152,"Guatemala","2013","Caturra","Washed / Wet",4,0,0,0,0,1,"Caturra",0,0,1,0,0,0,15.783471
+81.17,1450,"Honduras","2015","Catuai","Natural / Dry",1,0,0,0,0,0,"Catuai",0,1,0,0,0,0,15.199999
+81.17,1800,"Mexico","2012","Typica","Natural / Dry",10,0,0,0,0,0,"Typica",0,0,0,1,0,1,23.634501
+81.08,520.257024,"United States","2014","Pache Comun","Natural / Dry",0,0,0,0,0,0,"Other",0,0,0,0,0,1,37.09024
+81.08,1500,"Costa Rica","2014","Caturra","Washed / Wet",0,0,0,0,0,1,"Caturra",0,0,1,0,0,0,9.748917
+81,1600,"Colombia","2016","Caturra","Washed / Wet",4,4,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+81,371.61216,"Guatemala","2015","Bourbon","Washed / Wet",1,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+81,758,"Taiwan","2015","Typica","Washed / Wet",0,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.69781
+81,1525,"Tanzania, United Republic Of","2014","Other","Washed / Wet",5,0,0,0,0,1,"Other",0,0,0,0,0,0,NA
+81,1100,"Mexico","2012","Typica","Washed / Wet",8,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+80.92,1186,"Mexico","2012","Typica","Washed / Wet",12,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+80.83,1100,"Mexico","2012","Typica","Washed / Wet",3,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+80.83,100,"Mexico","2012","Bourbon","Washed / Wet",1,0,0,0,0,1,"Bourbon",1,0,0,0,0,1,23.634501
+80.75,1450,"Honduras","2015","Caturra","Natural / Dry",2,0,0,0,0,0,"Caturra",0,0,1,0,0,0,15.199999
+80.75,1450,"Honduras","2015","Catuai","Natural / Dry",1,0,0,0,0,0,"Catuai",0,1,0,0,0,0,15.199999
+80.75,1000,"Haiti","2012","Typica","Washed / Wet",0,0,0,0,0,1,"Typica",0,0,0,1,0,0,18.971187
+80.67,995,"Malawi","2014","Caturra","Washed / Wet",1,0,0,0,0,1,"Caturra",0,0,1,0,0,0,13.254308
+80.67,1550,"Guatemala","2013","Bourbon","Washed / Wet",5,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+80.58,1400,"Tanzania, United Republic Of","2014","Other","Washed / Wet",1,0,0,0,0,1,"Other",0,0,0,0,0,0,NA
+80.5,50,"Taiwan","2017","Other","Natural / Dry",0,0,0,0,0,0,"Other",0,0,0,0,0,1,23.69781
+80.5,1500,"Guatemala","2017","Caturra","Washed / Wet",4,0,0,0,0,1,"Caturra",0,0,1,0,0,0,15.783471
+80.5,1450,"Mexico","2012","Typica","Washed / Wet",1,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+80.42,1050,"Mexico","2012","Typica","Washed / Wet",6,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+80.33,399.483072,"Guatemala","2013","Bourbon","Washed / Wet",5,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+80.25,995,"Brazil","2017 / 2018","Catuai","Natural / Dry",1,1,0,0,0,0,"Catuai",0,1,0,0,0,0,14.235004
+80.25,1600,"Mexico","2016","Caturra","Washed / Wet",2,0,0,0,0,1,"Caturra",0,0,1,0,0,1,23.634501
+80.25,1400,"Guatemala","2012","Caturra","Washed / Wet",13,0,0,0,0,1,"Caturra",0,0,1,0,0,0,15.783471
+80.17,399.483072,"Guatemala","2013","Bourbon","Washed / Wet",2,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+80.17,399.483072,"Guatemala","2012","Bourbon","Washed / Wet",5,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+80.08,850,"Taiwan","2014","Typica","Washed / Wet",0,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.69781
+80,1400,"Mexico","2014","Typica","Washed / Wet",2,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+79.92,1100,"Mexico","2012","Other","Washed / Wet",8,0,0,0,0,1,"Other",0,0,0,0,0,1,23.634501
+79.92,1250,"Mexico","2012","Typica","Natural / Dry",6,0,0,0,0,0,"Typica",0,0,0,1,0,1,23.634501
+79.92,1250,"Mexico","2012","Mundo Novo","Washed / Wet",0,0,0,0,0,1,"Other",0,0,0,0,0,1,23.634501
+79.83,1700,"Guatemala","2017","Bourbon","Washed / Wet",2,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+79.75,1100,"Costa Rica","2013","Catuai","Washed / Wet",4,0,0,0,0,1,"Catuai",0,1,0,0,0,0,9.748917
+79.75,1022,"Mexico","2013","Bourbon","Washed / Wet",4,0,0,0,0,1,"Bourbon",1,0,0,0,0,1,23.634501
+79.75,1450,"Mexico","2012","Bourbon","Washed / Wet",0,0,0,0,0,1,"Bourbon",1,0,0,0,0,1,23.634501
+79.75,1050,"Mexico","2012","Typica","Washed / Wet",23,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+79.67,371.61216,"Guatemala","2016","Bourbon","Washed / Wet",1,2,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+79.67,975,"Mexico","2012","Caturra","Washed / Wet",11,0,0,0,0,1,"Caturra",0,0,1,0,0,1,23.634501
+79.58,1250,"Mexico","2012","Typica","Washed / Wet",11,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+79.5,1550,"Colombia","2013","Caturra","Washed / Wet",2,0,0,0,0,1,"Caturra",0,0,1,0,0,0,4.570868
+79.5,1100,"Mexico","2012","Typica","Washed / Wet",5,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+79.42,371.61216,"Guatemala","2014","Other","Washed / Wet",5,0,0,0,0,1,"Other",0,0,0,0,0,0,15.783471
+79.33,750,"Mexico","2012","Typica","Washed / Wet",19,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+79.25,850,"Taiwan","2014","Typica","Washed / Wet",0,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.69781
+79.17,1650,"Honduras","2017","Catuai","Washed / Wet",5,0,0,0,0,1,"Catuai",0,1,0,0,0,0,15.199999
+79.17,1320,"Guatemala","2016","Bourbon","Washed / Wet",6,8,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+79.17,1550,"Guatemala","2015","Catuai","Washed / Wet",6,0,0,0,0,1,"Catuai",0,1,0,0,0,0,15.783471
+79.17,1450,"Mexico","2012","Typica","Washed / Wet",34,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+79.08,1700,"Guatemala","2017","Bourbon","Washed / Wet",1,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+79.08,260.128512,"United States (Puerto Rico)","2013","Other","Washed / Wet",0,0,0,0,0,1,"Other",0,0,0,0,0,0,NA
+79.08,1500,"Mexico","2012","Typica","Washed / Wet",2,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+79,1400,"Peru","2012","Typica","Washed / Wet",4,0,0,0,0,1,"Typica",0,0,0,1,0,0,9.189967
+78.83,1100,"Nicaragua","2016","Caturra","Other",4,2,1,0,0,0,"Caturra",0,0,1,0,0,0,12.865416
+78.75,1250,"Mexico","2012","Typica","Semi-washed / Semi-pulped",0,0,0,0,1,0,"Typica",0,0,0,1,0,1,23.634501
+78.67,1850,"China","2013","Typica","Washed / Wet",5,0,0,0,0,1,"Typica",0,0,0,1,0,1,35.86166
+78.58,1400,"Mexico","2012","Typica","Washed / Wet",1,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+78.5,1200,"Mexico","2012","Caturra","Washed / Wet",4,0,0,0,0,1,"Caturra",0,0,1,0,0,1,23.634501
+78,850,"Mexico","2012","Other","Washed / Wet",9,0,0,0,0,1,"Other",0,0,0,0,0,1,23.634501
+77.92,1248,"Mexico","2012","Typica","Washed / Wet",3,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+77.83,399.483072,"Guatemala","2013","Bourbon","Washed / Wet",2,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+77.67,775,"Taiwan","2012","Typica","Washed / Wet",0,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.69781
+77.42,399.483072,"Guatemala","2013","Bourbon","Washed / Wet",17,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+77,1200,"Peru","2014","Caturra","Washed / Wet",16,0,0,0,0,1,"Caturra",0,0,1,0,0,0,9.189967
+76.33,399.483072,"Guatemala","2012","Bourbon","Washed / Wet",8,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+76.17,1400,"Mexico","2012","Typica","Washed / Wet",6,0,0,0,0,1,"Typica",0,0,0,1,0,1,23.634501
+76.08,1250,"Mexico","2012","Bourbon","Washed / Wet",12,0,0,0,0,1,"Bourbon",1,0,0,0,0,1,23.634501
+76,1350,"Honduras","2014","Pacas","Natural / Dry",7,0,0,0,0,0,"Other",0,0,0,0,0,0,15.199999
+75.83,1000,"Philippines","2012","","Washed / Wet",2,0,0,0,0,1,"Other",0,0,0,0,0,0,12.879721
+74.33,399.483072,"Guatemala","2013","Bourbon","Washed / Wet",2,0,0,0,0,1,"Bourbon",1,0,0,0,0,0,15.783471
+73.42,1350,"Honduras","2014","Pacas","Washed / Wet",17,0,0,0,0,1,"Other",0,0,0,0,0,0,15.199999
+68.33,900,"Mexico","2012","Bourbon","Washed / Wet",20,0,0,0,0,1,"Bourbon",1,0,0,0,0,1,23.634501
+63.08,1100,"Nicaragua","2016","Caturra","Other",6,0,1,0,0,0,"Caturra",0,0,1,0,0,0,12.865416
