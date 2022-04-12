@@ -14,10 +14,7 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 
 
 ```{r}
-install.packages("patchwork")
-install.packages("sandwich")
-install.packages("lmtest")
-install.packages('fastDummies')
+# install.packages('fastDummies')
 library('fastDummies')
 library(tidyverse)
 library(magrittr)
@@ -29,7 +26,8 @@ library(stargazer)
 ```
 
 ```{r load model data}
-model_df <- read.csv("model_df.csv") %>% filter(altitude_mean_meters_adj < 3000) %>% mutate(altitude_e100 = altitude_mean_meters_adj / 100) 
+model_df <- read.csv("model_df_v4.csv") %>% mutate(altitude_e100 = altitude_mean_meters_adj / 100) %>% drop_na(dist_equator)
+
 ```
 
 
@@ -75,7 +73,9 @@ $$
 Total.Cup.Points = \beta_0 + \beta_1 \cdot altitude\_e100 + \beta_2 \cdot altitude\_e100^2
 $$
 ```{r model1}
-model1 <- lm(Total.Cup.Points ~ altitude_e100  + I(altitude_e100^2), data = model_df)
+model2 <- lm(Total.Cup.Points ~ altitude_e100  + I(altitude_e100^2), data = model_df)
+model1 <- lm(Total.Cup.Points ~ altitude_e100, data = model_df)
+
 ```
 We can determine that altitude variable has a statistically significant impact to the total cup points. In the base model, the coefficient of determination($R^2$) is 0.106, indicating that 10.6% of the variance in the total cup point is being described by the base model. The effect size of altitude per 100 meter is -0.493, indicating that a 100-meter increase of the altitude decrease the total cup score by 0.493 units at 0 meter altitude.  The effect size of altitude squared per 100 meter is 0.028, indicating that a 100-meter increase of the altitude will slow down the total cup score decreament by 0.028 units.
 
@@ -91,7 +91,8 @@ Total.Cup.Points = \beta_0 + \beta_1 \cdot altitude\_e100 + \beta_2 \cdot altitu
 $$
 
 ```{r model2}
-model2 <- lm(Total.Cup.Points ~ altitude_e100 + I(altitude_e100^2) + Non_Tropical, data = model_df)
+model3 <- lm(Total.Cup.Points ~ altitude_e100 + I(altitude_e100^2) + dist_equator
+, data = model_df)
 ```
 
 
@@ -106,11 +107,14 @@ Total.Cup.Points = \beta_0 + \beta_1 \cdot altitude\_e100 + \beta_2 \cdot altitu
 \end{align*}
 
 ```{r model3}
-model3 <- lm(Total.Cup.Points ~ altitude_e100 + I(altitude_e100^2) + Non_Tropical + total_defects
-             + variety_adj_Bourbon + variety_adj_Catuai + variety_adj_Caturra 
+model4 <- lm(Total.Cup.Points ~ altitude_e100 + I(altitude_e100^2) + dist_equator
+ + total_defects
+             + variety_adj_Bourbon + variety_adj_Catuai + variety_adj_Caturra
              + variety_adj_Typica + variety_adj_Yellow.Bourbon
              + Processing.Method_Washed...Wet + Processing.Method_Semi.washed...Semi.pulped
-             + Processing.Method_Pulped.natural...honey + Processing.Method_Other, data = model_df)
+             + Processing.Method_Pulped.natural...honey + Processing.Method_Other
+ , 
+ data = model_df)
 ```
 
 
@@ -118,16 +122,15 @@ model3 <- lm(Total.Cup.Points ~ altitude_e100 + I(altitude_e100^2) + Non_Tropica
 # Results
 
 ```{r warning = FALSE, results='asis'}
-model1$AIC <- AIC(model1)
-model2$AIC <- AIC(model2)
-model3$AIC <- AIC(model3)
 stargazer(
   model1,
   model2,
   model3,
+  model4,
   type = 'latex',
   no.space=TRUE,
-  font.size = "small"
+  font.size = "scriptsize",
+  column.sep.width = "-15pt"
   )
 
 ```
